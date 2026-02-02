@@ -1,0 +1,185 @@
+/* Redmine Logo Plugin - Modern CSS Styles */
+/* 基于Uiverse设计元素的现代化样式 */
+
+/* Logo容器基础样式 */
+#custom-logo-container {
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#custom-logo-container:hover {
+  transform: translateY(-2px);
+}
+
+/* 文字Logo现代化样式 - 基于Uiverse设计元素 */
+.logo-text-modern {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  letter-spacing: -0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.logo-text-modern:hover {
+  transform: translateY(-1px);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 文字下划线动画效果 */
+.logo-text-modern::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.6));
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-text-modern:hover::after {
+  width: 100%;
+}
+
+/* 图片Logo样式 */
+#custom-logo-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+}
+
+#custom-logo-image:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  #custom-logo-container {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+
+  .logo-text-modern {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #custom-logo-container {
+    transform: scale(0.8);
+  }
+
+  .logo-text-modern {
+    font-size: 16px !important;
+  }
+
+  #custom-logo-image {
+    max-width: 120px !important;
+  }
+}
+
+/* Logo位置样式 */
+.logo-position-left {
+  text-align: left;
+}
+
+.logo-position-center {
+  text-align: center;
+}
+
+.logo-position-right {
+  text-align: right;
+}
+
+/* 配置表单样式 */
+#logo_settings_form .tabular p {
+  padding: 8px 0;
+}
+
+#logo_settings_form .tabular label {
+  font-weight: 600;
+  color: #333;
+}
+
+#logo_settings_form fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+  background: #fafafa;
+}
+
+#logo_settings_form legend {
+  font-weight: 600;
+  color: #2c3e50;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+/* 颜色预览器 */
+.color-preview {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.color-preview:hover {
+  border-color: #999;
+}
+
+/* Logo预览样式 */
+.current-logo-preview {
+  display: inline-block;
+  margin-left: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 5px;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.current-logo-preview:hover {
+  border-color: #999;
+}
+
+/* 动画效果 */
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-fade-in {
+  animation: logoFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 按钮样式增强 */
+.button-1, .button-2 {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-1:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-2:hover {
+  transform: translateY(-1px);
+}
