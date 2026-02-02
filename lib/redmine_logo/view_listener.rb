@@ -4,7 +4,7 @@ module RedmineLogo
 
     def view_layouts_base_body_bottom(context = {})
       settings = Setting.plugin_redmine_logo || {}
-      return '' unless settings['logo_type'].present?
+      return '' if settings.blank? || settings['logo_type'].blank?
 
       # 生成CSS样式
       css = generate_logo_css(settings)

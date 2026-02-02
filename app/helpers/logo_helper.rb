@@ -1,6 +1,7 @@
 module LogoHelper
   def render_custom_logo
     settings = Setting.plugin_redmine_logo || {}
+    return '' if settings.blank?
 
     content_tag :div, id: 'custom-logo-container', class: "logo-position-#{settings['logo_position'] || 'left'}" do
       if settings['logo_type'] == 'image' && settings['logo_image_url'].present?

@@ -45,34 +45,34 @@ A comprehensive logo management plugin for Redmine 6.1.1+ that allows customizat
 ## Installation
 
 1. **Download the plugin**
-   ```bash
+```bash
 cd /path/to/redmine/plugins
 git clone https://github.com/carolcoral/redmine_logo.git redmine_logo
-   ```
+```
 
 2. **Install dependencies**
-   ```bash
+```bash
 cd /path/to/redmine
 bundle install
-   ```
+```
 
 3. **Run database migrations**
-   ```bash
+```bash
 RAILS_ENV=production bundle exec rake redmine:plugins:migrate
-   ```
+```
 
 4. **Restart Redmine**
-   ```bash
+```bash
 # For Passenger + Apache
 touch tmp/restart.txt
 
 # For other setups, restart your application server
-   ```
+```
 
 5. **Clear cache** (optional but recommended)
-   ```bash
+```bash
 RAILS_ENV=production bundle exec rake tmp:cache:clear
-   ```
+```
 
 ## Configuration
 

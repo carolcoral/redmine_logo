@@ -1,33 +1,43 @@
-<h2><%= l(:label_logo_settings) %></h2>
+<% settings = @settings || {}
+   # 确保所有必要字段都有默认值
+   settings['logo_type'] ||= 'text'
+   settings['logo_text'] ||= 'Redmine'
+   settings['logo_text_color'] ||= '#ffffff'
+   settings['logo_text_font_size'] ||= '24px'
+   settings['logo_text_font_weight'] ||= '600'
+   settings['logo_position'] ||= 'left'
+   settings['logo_width'] ||= '150px'
+   settings['logo_height'] ||= '50px'
+   settings['logo_image_url'] ||= ''
+   settings['logo_padding'] ||= '10px'
+   settings['logo_background_color'] ||= 'transparent'
+%>
+<fieldset>
+  <legend><%= l(:label_logo_type) %></legend>
+  <p>
+    <label><%= l(:label_logo_type_selection) %>:</label>
+    <%= radio_button_tag 'settings[logo_type]', 'text', settings['logo_type'] == 'text', class: 'logo-type-radio' %>
+    <label for="settings_logo_type_text" class="inline"><%= l(:label_text_logo) %></label>
+    <%= radio_button_tag 'settings[logo_type]', 'image', settings['logo_type'] == 'image', class: 'logo-type-radio' %>
+    <label for="settings_logo_type_image" class="inline"><%= l(:label_image_logo) %></label>
+  </p>
+</fieldset>
 
-<%= form_tag({ controller: 'logo_settings', action: 'update' }, multipart: true, id: 'logo_settings_form') do %>
-  <div class="box tabular">
-    <fieldset>
-      <legend><%= l(:label_logo_type) %></legend>
-      <p>
-        <label><%= l(:label_logo_type_selection) %>:</label>
-        <%= radio_button_tag 'settings[logo_type]', 'text', @logo_settings['logo_type'] == 'text', class: 'logo-type-radio' %>
-        <label for="settings_logo_type_text" class="inline"><%= l(:label_text_logo) %></label>
-        <%= radio_button_tag 'settings[logo_type]', 'image', @logo_settings['logo_type'] == 'image', class: 'logo-type-radio' %>
-        <label for="settings_logo_type_image" class="inline"><%= l(:label_image_logo) %></label>
-      </p>
-    </fieldset>
-
-    <div id="text_logo_settings" style="<%= 'display:none;' if @logo_settings['logo_type'] == 'image' %>">
+<div id="text_logo_settings" style="<%= 'display:none;' if settings['logo_type'] == 'image' %>">
       <fieldset>
         <legend><%= l(:label_text_logo_settings) %></legend>
         <p>
           <label for="logo_text"><%= l(:label_logo_text) %>:</label>
-          <%= text_field_tag 'settings[logo_text]', @logo_settings['logo_text'], size: 50 %>
+          <%= text_field_tag 'settings[logo_text]', settings['logo_text'], size: 50 %>
         </p>
         <p>
           <label for="logo_text_color"><%= l(:label_text_color) %>:</label>
-          <%= text_field_tag 'settings[logo_text_color]', @logo_settings['logo_text_color'], size: 10 %>
-          <span class="color-preview" style="background-color: <%= @logo_settings['logo_text_color'] %>;"></span>
+          <%= text_field_tag 'settings[logo_text_color]', settings['logo_text_color'], size: 10 %>
+          <span class="color-preview" style="background-color: <%= settings['logo_text_color'] %>;"></span>
         </p>
         <p>
           <label for="logo_text_font_size"><%= l(:label_font_size) %>:</label>
-          <%= text_field_tag 'settings[logo_text_font_size]', @logo_settings['logo_text_font_size'], size: 10 %>
+          <%= text_field_tag 'settings[logo_text_font_size]', settings['logo_text_font_size'], size: 10 %>
           <em class="info">(<%= l(:text_size_example) %>)</em>
         </p>
         <p>
@@ -38,13 +48,13 @@
                 [l(:label_font_weight_medium), '500'],
                 [l(:label_font_weight_semibold), '600'],
                 [l(:label_font_weight_bold), '700']
-              ], @logo_settings['logo_text_font_weight']),
+              ], settings['logo_text_font_weight']),
               class: 'font-weight-select' %>
         </p>
       </fieldset>
     </div>
 
-    <div id="image_logo_settings" style="<%= 'display:none;' if @logo_settings['logo_type'] == 'text' %>">
+    <div id="image_logo_settings" style="<%= 'display:none;' if settings['logo_type'] == 'text' %>">
       <fieldset>
         <legend><%= l(:label_image_logo_settings) %></legend>
         <p>
@@ -52,61 +62,104 @@
           <%= file_field_tag 'logo_image_file', accept: 'image/*' %>
           <em class="info">(<%= l(:text_upload_info) %>)</em>
         </p>
-        <% if @logo_settings['logo_image_url'].present? %>
+        <% if settings['logo_image_url'].present? %>
           <p>
             <label><%= l(:label_current_logo) %>:</label>
             <span class="current-logo-preview">
-              <%= image_tag @logo_settings['logo_image_url'], style: "max-width: 200px; max-height: 60px; border: 1px solid #ccc;" %>
+              <%= image_tag settings['logo_image_url'], style: "max-width: 200px; max-height: 60px; border: 1px solid #ccc;" %>
             </span>
           </p>
         <% end %>
         <p>
           <label for="logo_image_url"><%= l(:label_logo_image_url) %>:</label>
-          <%= text_field_tag 'settings[logo_image_url]', @logo_settings['logo_image_url'], size: 50 %>
+          <%= text_field_tag 'settings[logo_image_url]', settings['logo_image_url'], size: 50 %>
           <em class="info">(<%= l(:text_or_enter_url) %>)</em>
         </p>
       </fieldset>
     </div>
 
-    <fieldset>
-      <legend><%= l(:label_logo_display_settings) %></legend>
-      <p>
-        <label for="logo_position"><%= l(:label_logo_position) %>:</label>
-        <%= select_tag 'settings[logo_position]',
-            options_for_select([
-              [l(:label_position_left), 'left'],
-              [l(:label_position_center), 'center'],
-              [l(:label_position_right), 'right']
-            ], @logo_settings['logo_position']) %>
-      </p>
-      <p>
-        <label for="logo_width"><%= l(:label_logo_width) %>:</label>
-        <%= text_field_tag 'settings[logo_width]', @logo_settings['logo_width'], size: 10 %>
-        <em class="info">(<%= l(:text_dimension_example) %>)</em>
-      </p>
-      <p>
-        <label for="logo_height"><%= l(:label_logo_height) %>:</label>
-        <%= text_field_tag 'settings[logo_height]', @logo_settings['logo_height'], size: 10 %>
-        <em class="info">(<%= l(:text_dimension_example) %>)</em>
-      </p>
-      <p>
-        <label for="logo_padding"><%= l(:label_logo_padding) %>:</label>
-        <%= text_field_tag 'settings[logo_padding]', @logo_settings['logo_padding'], size: 10 %>
-        <em class="info">(<%= l(:text_padding_example) %>)</em>
-      </p>
-      <p>
-        <label for="logo_background_color"><%= l(:label_background_color) %>:</label>
-        <%= text_field_tag 'settings[logo_background_color]', @logo_settings['logo_background_color'], size: 10 %>
-        <span class="color-preview" style="background-color: <%= @logo_settings['logo_background_color'] %>;"></span>
-      </p>
-    </fieldset>
-  </div>
+<fieldset>
+  <legend><%= l(:label_logo_display_settings) %></legend>
+  <p>
+    <label for="logo_position"><%= l(:label_logo_position) %>:</label>
+    <%= select_tag 'settings[logo_position]',
+        options_for_select([
+          [l(:label_position_left), 'left'],
+          [l(:label_position_center), 'center'],
+          [l(:label_position_right), 'right']
+        ], settings['logo_position']) %>
+  </p>
+  <p>
+    <label for="logo_width"><%= l(:label_logo_width) %>:</label>
+    <%= text_field_tag 'settings[logo_width]', settings['logo_width'], size: 10 %>
+    <em class="info">(<%= l(:text_dimension_example) %>)</em>
+  </p>
+  <p>
+    <label for="logo_height"><%= l(:label_logo_height) %>:</label>
+    <%= text_field_tag 'settings[logo_height]', settings['logo_height'], size: 10 %>
+    <em class="info">(<%= l(:text_dimension_example) %>)</em>
+  </p>
+  <p>
+    <label for="logo_padding"><%= l(:label_logo_padding) %>:</label>
+    <%= text_field_tag 'settings[logo_padding]', settings['logo_padding'], size: 10 %>
+    <em class="info">(<%= l(:text_padding_example) %>)</em>
+  </p>
+  <p>
+    <label for="logo_background_color"><%= l(:label_background_color) %>:</label>
+    <%= text_field_tag 'settings[logo_background_color]', settings['logo_background_color'], size: 10 %>
+    <span class="color-preview" style="background-color: <%= settings['logo_background_color'] %>;"></span>
+  </p>
+</fieldset>
 
-  <div class="form-actions">
-    <%= submit_tag l(:button_save), class: 'button-1' %>
-    <%= link_to l(:button_cancel), { controller: 'admin', action: 'index' }, class: 'button-2' %>
-  </div>
-<% end %>
+<style>
+  .inline { display: inline; margin-left: 5px; }
+  .info { color: #666; font-size: 0.9em; margin-left: 5px; }
+  .color-preview {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+  .current-logo-preview {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .font-weight-select { width: 150px; }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const textRadio = document.querySelector('input[name="settings[logo_type]"][value="text"]');
+    const imageRadio = document.querySelector('input[name="settings[logo_type]"][value="image"]');
+    const textSettings = document.getElementById('text_logo_settings');
+    const imageSettings = document.getElementById('image_logo_settings');
+
+    function toggleSettings() {
+      if (textRadio.checked) {
+        textSettings.style.display = 'block';
+        imageSettings.style.display = 'none';
+      } else {
+        textSettings.style.display = 'none';
+        imageSettings.style.display = 'block';
+      }
+    }
+
+    textRadio.addEventListener('change', toggleSettings);
+    imageRadio.addEventListener('change', toggleSettings);
+
+    // 实时预览颜色
+    document.querySelectorAll('input[name$="[color]"]').forEach(function(colorInput) {
+      colorInput.addEventListener('input', function() {
+        const preview = this.parentNode.querySelector('.color-preview');
+        if (preview) {
+          preview.style.backgroundColor = this.value;
+        }
+      });
+    });
+  });
+</script>
 
 <style>
   .inline { display: inline; margin-left: 5px; }
