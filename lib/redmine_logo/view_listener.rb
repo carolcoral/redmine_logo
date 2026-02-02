@@ -3,9 +3,8 @@ module RedmineLogo
     include LogoHelper
 
     def view_layouts_base_html_head(context = {})
-      # 在head中添加CSS
       settings = Setting.plugin_redmine_logo || {}
-      return '' if settings.blank? || settings['logo_type'].blank?
+      return '' if settings.blank? || settings['plugin_enabled'] != '1'
 
       css = generate_logo_css(settings)
       javascript = generate_logo_javascript(settings)
@@ -21,24 +20,29 @@ module RedmineLogo
     end
 
     def view_layouts_base_body_bottom(context = {})
-      # 在body底部添加Logo HTML
       settings = Setting.plugin_redmine_logo || {}
-      return '' if settings.blank? || settings['logo_type'].blank?
+      return '' if settings.blank? || settings['plugin_enabled'] != '1'
 
       logo_html = generate_logo_html(settings)
-      logo_html.html_safe
+      insertion_script = generate_insertion_script(settings)
+      
+      <<~HTML.html_safe
+        #{logo_html}
+        <script>
+          #{insertion_script}
+        </script>
+      HTML
     end
 
     private
 
     def generate_logo_css(settings)
       position = settings['logo_position'] || 'left'
+      logo_height = settings['logo_height'] || '25px'
       
-      # 基础样式
       css = []
-      css << "#header h1 { display: none; }"
       
-      # Logo容器样式 - 根据位置调整
+      # Logo容器样式 - 固定高度25px
       if position == 'center'
         css << <<~CSS
           #custom-logo-container {
@@ -48,7 +52,9 @@ module RedmineLogo
             z-index: 1000;
             display: flex;
             align-items: center;
-            height: 100%;
+            justify-content: center;
+            height: #{logo_height};
+            pointer-events: auto;
           }
         CSS
       else # left
@@ -59,7 +65,9 @@ module RedmineLogo
             z-index: 1000;
             display: flex;
             align-items: center;
-            height: 100%;
+            justify-content: flex-start;
+            height: #{logo_height};
+            pointer-events: auto;
           }
         CSS
       end
@@ -71,62 +79,71 @@ module RedmineLogo
           position: relative;
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           cursor: pointer;
           letter-spacing: -0.5px;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: none; /* 移除过渡效果 */
           height: 100%;
           line-height: 1;
-          margin-right: 20px;
+          white-space: nowrap;
+          margin: 0;
+          padding: 0;
         }
+        /* 移除悬停效果 */
         .logo-text-modern:hover {
-          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */
         }
+        /* 移除下划线动画 */
         .logo-text-modern::after {
-          content: '';
-          position: absolute;
-          bottom: 5px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.6));
-          border-radius: 2px;
-          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          /* display: none; */
         }
         .logo-text-modern:hover::after {
-          width: 100%;
+          /* width: 100%; */
+        }
+        /* 首字母样式 */
+        .logo-first-letter {
+          font-weight: bold;
         }
         #custom-logo-image {
           max-width: 100%;
           max-height: 100%;
-          height: auto;
+          height: 100%;
           width: auto;
           object-fit: contain;
           display: block;
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
-          margin-right: 20px;
-        }
-        #custom-logo-image:hover {
-          transform: scale(1.03);
-          filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+          margin: 0;
+          padding: 0;
         }
         #custom-logo-container a {
           display: flex;
           align-items: center;
+          justify-content: center;
           height: 100%;
           text-decoration: none;
+          margin: 0;
+          padding: 0;
         }
-        #main-menu ul {
-          padding-left: 120px; /* 为logo预留空间 */
+        /* 不要修改top-menu的display属性，保持原有布局 */
+        #top-menu {
+          position: relative;
+        }
+        /* 为左侧Logo预留空间 - 主页菜单与Logo保持10px间距 */
+        #top-menu > ul {
+          padding-left: 10px; /* 只有10px间距，不是120px */
+          margin-left: calc(#{logo_height} + 10px); /* Logo宽度 + 10px间距 */
+        }
+        /* 右侧菜单保持原位置 */
+        #top-menu ul + ul {
+          margin-left: auto;
+          padding-left: 0;
         }
         @media (max-width: 768px) {
           #custom-logo-container { transform: scale(0.9); }
-          .logo-text-modern { font-size: 18px !important; }
-          #main-menu ul { padding-left: 100px; }
+          .logo-text-modern { font-size: 16px !important; }
         }
         @media (max-width: 480px) {
           #custom-logo-container { transform: scale(0.8); }
-          .logo-text-modern { font-size: 16px !important; }
-          #main-menu ul { padding-left: 80px; }
+          .logo-text-modern { font-size: 14px !important; }
         }
       CSS
       
@@ -160,10 +177,34 @@ module RedmineLogo
         });
       JAVASCRIPT
     end
+    
+    def generate_insertion_script(settings)
+      <<~JAVASCRIPT
+        (function() {
+          function insertLogo() {
+            const topMenu = document.getElementById('top-menu');
+            const logoContainer = document.getElementById('custom-logo-container');
+            
+            if (topMenu && logoContainer) {
+              // 显示Logo容器并插入
+              logoContainer.style.display = 'flex';
+              topMenu.insertBefore(logoContainer, topMenu.firstChild);
+            } else {
+              setTimeout(insertLogo, 100);
+            }
+          }
+          
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', insertLogo);
+          } else {
+            insertLogo();
+          }
+        })();
+      JAVASCRIPT
+    end
 
     def generate_logo_html(settings)
       if settings['logo_type'] == 'image' && settings['logo_image_url'].present?
-        # 图片Logo
         link_path = home_url
         image_tag = ActionController::Base.helpers.image_tag(
           settings['logo_image_url'],
@@ -172,23 +213,40 @@ module RedmineLogo
           id: 'custom-logo-image'
         )
         <<~HTML
-          <div id="custom-logo-container">
+          <div id="custom-logo-container" style="display:none;">
             <a href="#{link_path}">#{image_tag}</a>
           </div>
         HTML
       else
-        # 文字Logo
         link_path = home_url
-        content_tag = ActionController::Base.helpers.content_tag(
-          :span,
-          settings['logo_text'] || 'Redmine',
+        text = settings['logo_text'] || 'Redmine'
+        first_letter = text[0]
+        rest_of_text = text[1..-1]
+        first_letter_color = settings['logo_first_letter_color'] || settings['logo_text_color'] || '#ffffff'
+        
+        # 创建带首字母颜色的文字
+        content_tag = if rest_of_text.present?
+          ActionController::Base.helpers.content_tag(:span, first_letter, 
+            style: "color: #{first_letter_color}", 
+            class: 'logo-first-letter') +
+          ActionController::Base.helpers.content_tag(:span, rest_of_text)
+        else
+          ActionController::Base.helpers.content_tag(:span, first_letter, 
+            style: "color: #{first_letter_color}", 
+            class: 'logo-first-letter')
+        end
+        
+        # 包装在logo-text-modern中
+        full_content = ActionController::Base.helpers.content_tag(:span, 
+          content_tag, 
           style: logo_text_styles(settings),
           id: 'custom-logo-text',
           class: 'logo-text-modern'
         )
+        
         <<~HTML
-          <div id="custom-logo-container">
-            <a href="#{link_path}" style="#{logo_link_styles(settings)}">#{content_tag}</a>
+          <div id="custom-logo-container" style="display:none;">
+            <a href="#{link_path}" style="#{logo_link_styles(settings)}">#{full_content}</a>
           </div>
         HTML
       end

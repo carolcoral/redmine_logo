@@ -1,16 +1,26 @@
 <% settings = @settings || {}
-   # 确保所有必要字段都有默认值
+   # 设置默认值
+   settings['plugin_enabled'] ||= '1'
    settings['logo_type'] ||= 'text'
    settings['logo_text'] ||= 'Redmine'
    settings['logo_text_color'] ||= '#ffffff'
-   settings['logo_text_font_size'] ||= '24px'
+   settings['logo_text_font_size'] ||= '20px'
    settings['logo_text_font_weight'] ||= '600'
-   settings['logo_width'] ||= '150px'
-   settings['logo_height'] ||= '50px'
+   settings['logo_position'] ||= 'left'
    settings['logo_image_url'] ||= ''
-   settings['logo_padding'] ||= '10px'
-   settings['logo_background_color'] ||= 'transparent'
+   settings['logo_margin'] ||= '0'
+   settings['logo_padding'] ||= '8px'
 %>
+
+<fieldset>
+  <legend><%= l(:label_general_settings) %></legend>
+  <p>
+    <label><%= l(:label_plugin_enabled) %>:</label>
+    <%= check_box_tag 'settings[plugin_enabled]', '1', settings['plugin_enabled'] == '1' %>
+    <em class="info"><%= l(:text_plugin_enabled_info) %></em>
+  </p>
+</fieldset>
+
 <fieldset>
   <legend><%= l(:label_logo_type) %></legend>
   <p>
@@ -32,12 +42,15 @@
     <p>
       <label for="logo_text_color"><%= l(:label_text_color) %>:</label>
       <%= color_field_tag 'settings[logo_text_color]', settings['logo_text_color'] %>
-      <span class="color-preview" style="background-color: <%= settings['logo_text_color'] %>;"></span>
+    </p>
+    <p>
+      <label for="logo_first_letter_color"><%= l(:label_first_letter_color) %>:</label>
+      <%= color_field_tag 'settings[logo_first_letter_color]', settings['logo_first_letter_color'] %>
     </p>
     <p>
       <label for="logo_text_font_size"><%= l(:label_font_size) %>:</label>
       <%= text_field_tag 'settings[logo_text_font_size]', settings['logo_text_font_size'], size: 10 %>
-      <em class="info">(<%= l(:text_size_example) %>)</em>
+      <em class="info"><%= l(:text_size_example) %></em>
     </p>
     <p>
       <label for="logo_text_font_weight"><%= l(:label_font_weight) %>:</label>
@@ -59,7 +72,7 @@
     <p>
       <label for="logo_image_file"><%= l(:label_upload_logo) %>:</label>
       <%= file_field_tag 'logo_image_file', accept: 'image/*' %>
-      <em class="info">(<%= l(:text_upload_info) %>)</em>
+      <em class="info"><%= l(:text_upload_info) %></em>
     </p>
     <% if settings['logo_image_url'].present? %>
       <p>
@@ -72,7 +85,7 @@
     <p>
       <label for="logo_image_url"><%= l(:label_logo_image_url) %>:</label>
       <%= text_field_tag 'settings[logo_image_url]', settings['logo_image_url'], size: 50 %>
-      <em class="info">(<%= l(:text_or_enter_url) %>)</em>
+      <em class="info"><%= l(:text_or_enter_url) %></em>
     </p>
   </fieldset>
 </div>
@@ -88,43 +101,25 @@
         ], settings['logo_position'] || 'left') %>
   </p>
   <p>
-    <label for="logo_width"><%= l(:label_logo_width) %>:</label>
-    <%= text_field_tag 'settings[logo_width]', settings['logo_width'], size: 10 %>
-    <em class="info">(<%= l(:text_dimension_example) %>)</em>
-  </p>
-  <p>
-    <label for="logo_height"><%= l(:label_logo_height) %>:</label>
-    <%= text_field_tag 'settings[logo_height]', settings['logo_height'], size: 10 %>
-    <em class="info">(<%= l(:text_dimension_example) %>)</em>
+    <label for="logo_margin"><%= l(:label_logo_margin) %>:</label>
+    <%= text_field_tag 'settings[logo_margin]', settings['logo_margin'], size: 10 %>
+    <em class="info"><%= l(:text_margin_example) %></em>
   </p>
   <p>
     <label for="logo_padding"><%= l(:label_logo_padding) %>:</label>
     <%= text_field_tag 'settings[logo_padding]', settings['logo_padding'], size: 10 %>
-    <em class="info">(<%= l(:text_padding_example) %>)</em>
-  </p>
-  <p>
-    <label for="logo_background_color"><%= l(:label_background_color) %>:</label>
-    <%= color_field_tag 'settings[logo_background_color]', settings['logo_background_color'] %>
-    <span class="color-preview" style="background-color: <%= settings['logo_background_color'] %>;"></span>
+    <em class="info"><%= l(:text_padding_example) %></em>
   </p>
 </fieldset>
 
 <style>
   .inline { display: inline; margin-left: 5px; }
   .info { color: #666; font-size: 0.9em; margin-left: 5px; }
-  .color-preview {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #ccc;
-    vertical-align: middle;
-    margin-left: 5px;
-  }
+  .font-weight-select { width: 150px; }
   .current-logo-preview {
     display: inline-block;
     margin-left: 10px;
   }
-  .font-weight-select { width: 150px; }
 </style>
 
 <script>
@@ -146,15 +141,5 @@
 
     textRadio.addEventListener('change', toggleSettings);
     imageRadio.addEventListener('change', toggleSettings);
-
-    // 实时预览颜色
-    document.querySelectorAll('input[name$="[color]"]').forEach(function(colorInput) {
-      colorInput.addEventListener('input', function() {
-        const preview = this.parentNode.querySelector('.color-preview');
-        if (preview) {
-          preview.style.backgroundColor = this.value;
-        }
-      });
-    });
   });
 </script>

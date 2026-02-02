@@ -2,29 +2,30 @@ require 'redmine'
 
 Redmine::Plugin.register :redmine_logo do
   name 'Redmine Logo Plugin'
-  author 'LXW'
-  description 'Customizable logo plugin for Redmine 6.1.1+ with support for image or text logo, position control, and precise dimension settings'
+  author 'carolcoral'
+  description 'Customizable logo plugin for Redmine 6.1.x with support for text or image logo in top menu area'
   version '1.0.0'
   url 'https://github.com/carolcoral/redmine_logo'
   author_url 'https://github.com/carolcoral'
 
-  requires_redmine version_or_higher: '6.1.1'
+  requires_redmine version_or_higher: '6.1.0'
 
   settings default: {
-    'logo_type' => 'text', # text or image
+    'plugin_enabled' => '1',  # 插件启用开关
+    'logo_type' => 'text',
     'logo_text' => 'Redmine',
     'logo_text_color' => '#ffffff',
-    'logo_text_font_size' => '24px',
+    'logo_first_letter_color' => '#ff6600',  # 首字母颜色
+    'logo_text_font_size' => '20px',
     'logo_text_font_weight' => '600',
-    'logo_position' => 'left', # left, center, right
-    'logo_width' => '150px',
-    'logo_height' => '50px',
+    'logo_position' => 'left',
     'logo_image_url' => '',
-    'logo_padding' => '10px',
-    'logo_background_color' => 'transparent'
+    'logo_margin' => '0',
+    'logo_padding' => '8px',
+    'logo_height' => '25px'  # Logo高度
   }, partial: 'logo_settings/form'
 
-  menu :admin_menu, :logo_settings, { controller: 'settings', action: 'plugin', id: 'redmine_logo' }, caption: :label_logo_plugin, html: { class: 'icon icon-designer' }
+  menu :admin_menu, :logo_settings, { controller: 'logo_settings', action: 'update' }, caption: :label_logo_plugin, html: { class: 'icon icon-settings' }
 end
 
 require_relative 'lib/redmine_logo/view_listener'

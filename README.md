@@ -1,6 +1,6 @@
 # Redmine Logo Plugin
 
-A comprehensive logo management plugin for Redmine 6.1.1+ that allows customization of the top navigation bar logo with support for both image and text logos, precise positioning control, and detailed styling options.
+A customizable logo plugin for Redmine 6.1.x that allows you to add text or image logos to the top menu area with flexible positioning and styling options.
 
 ## Features
 
@@ -8,223 +8,187 @@ A comprehensive logo management plugin for Redmine 6.1.1+ that allows customizat
 - **Text Logo**: Use custom text as your logo with modern styling
 - **Image Logo**: Upload and use custom image files (JPG, PNG, GIF, SVG)
 
-### 🎯 Flexible Position
-- **Left Alignment**: Logo positioned on the left side of main menu
-- **Center Alignment**: Logo centered above the main menu
+### 🎯 Flexible Positioning
+- **Left Alignment**: Logo positioned on the left side of the top menu
+- **Center Alignment**: Logo centered in the top menu area
 
-### 📐 Precise Dimension Control
-- Custom width and height settings
-- Padding control for perfect spacing
-- Responsive design for mobile devices
-
-### 🎨 Modern Text Styling
-- Font size customization (px, em, rem units)
+### 🎨 Text Logo Styling
+- Custom text content
+- **Color Picker**: Interactive color selection for text color
+- Adjustable font size (px, em, rem units)
 - Font weight selection (Normal, Medium, Semi-bold, Bold)
-- Custom text color with live preview
-- Background color support
-- Smooth hover animations
-- Gradient underline effects
+- Custom margin and padding control
 
-### 🖼️ Image Management
+### 🖼️ Image Logo Features
 - Direct image upload support
 - URL-based image configuration
 - Automatic image optimization
 - Current logo preview
+- Custom margin and padding control
 
-### 🌍 Multi-language Support
-- English (EN)
-- Chinese (中文)
+### 📱 Responsive Design
+- Automatically adjusts for mobile devices
+- Maintains alignment and readability
+- Scales appropriately for different screen sizes
 
 ## Requirements
 
-- Redmine 6.1.1 or higher
-- Ruby 2.7+ (compatible with Redmine 6.1.1 requirements)
-- Rails 6.1+ (compatible with Redmine 6.1.1 requirements)
+- Redmine 6.1.0 or higher
+- Ruby 2.7+ (compatible with Redmine 6.1.x requirements)
+- Rails 6.1+ (compatible with Redmine 6.1.x requirements)
 
 ## Installation
 
 1. **Download the plugin**
-```bash
-cd /path/to/redmine/plugins
-git clone https://github.com/carolcoral/redmine_logo.git redmine_logo
-```
+   ```bash
+   cd /path/to/redmine/plugins
+   git clone https://github.com/carolcoral/redmine_logo.git redmine_logo
+   ```
 
 2. **Install dependencies**
-```bash
-cd /path/to/redmine
-bundle install
-```
+   ```bash
+   cd /path/to/redmine
+   bundle install
+   ```
 
 3. **Run database migrations**
-```bash
-RAILS_ENV=production bundle exec rake redmine:plugins:migrate
-```
+   ```bash
+   RAILS_ENV=production bundle exec rake redmine:plugins:migrate
+   ```
 
 4. **Restart Redmine**
-```bash
-# For Passenger + Apache
-touch tmp/restart.txt
+   ```bash
+   # For Passenger + Apache
+   touch tmp/restart.txt
 
-# For other setups, restart your application server
-```
+   # For other setups, restart your application server
+   ```
 
 5. **Clear cache** (optional but recommended)
-```bash
-RAILS_ENV=production bundle exec rake tmp:cache:clear
-```
+   ```bash
+   RAILS_ENV=production bundle exec rake tmp:cache:clear
+   ```
 
 ## Configuration
 
 1. **Access Plugin Settings**
    - Login as Administrator
-   - Go to **Administration** → **Logo Management**
-   - Or go to **Administration** → **Plugins** → **Redmine Logo Plugin** → **Configure**
+   - Go to **Administration → Logo Management**
+   - Or go to **Administration → Plugins** → **Redmine Logo Plugin** → **Configure**
 
-2. **Configure Logo Type**
+2. **Enable/Disable Plugin**
+   - Use the **Enable Plugin** checkbox to turn logo display on or off
+   - When disabled, the logo will not appear in the top menu
+
+3. **Configure Logo Type**
    - Choose between **Text Logo** or **Image Logo**
    - Configure appropriate settings based on your selection
 
-3. **Text Logo Settings**
+4. **Text Logo Settings**
    - Enter custom logo text
-   - Set text color using color picker or hex codes
-   - Adjust font size (e.g., 24px, 1.5em, 2rem)
+   - Select text color using the color picker
+   - Adjust font size (e.g., 20px, 1.5em, 2rem)
    - Select font weight (Normal, Medium, Semi-bold, Bold)
 
-4. **Image Logo Settings**
+5. **Image Logo Settings**
    - Upload logo image file (JPG, PNG, GIF, SVG)
    - Or enter direct image URL
    - View current logo preview
 
-5. **Display Settings**
-   - **Position**: Choose between left or center alignment above the main menu
-   - **Width**: Set exact width (e.g., 150px, 10em, 50%)
-   - **Height**: Set exact height (e.g., 50px, 3em)
-   - **Padding**: Control spacing (e.g., 10px, 1em, 5px 10px)
-   - **Background Color**: Set background color using color picker or hex codes
+6. **Display Settings**
+   - **Position**: Choose between left or center alignment
+   - **Margin**: Control outer spacing (e.g., 0, 5px, 10px 15px)
+   - **Padding**: Control inner spacing (e.g., 8px, 10px, 5px 15px)
 
-6. **Save Settings**
+7. **Save Settings**
    - Click **Save** to apply changes
    - Changes take effect immediately
 
-## Text Logo Styling
+## Usage
 
-The text logo features modern styling inspired by Uiverse design elements:
+### Text Logo Example
+- **Text**: "My Company"
+- **Color**: #ff6600 (using color picker)
+- **Font Size**: 24px
+- **Font Weight**: Bold
+- **Position**: Left
+- **Margin**: 0
+- **Padding**: 10px
 
-- **Flexible Positioning**: Choose between left or center alignment above the main menu
-- **Smooth Animations**: Subtle hover effects with smooth transitions
-- **Gradient Underline**: Animated underline effect on hover
-- **Typography**: Modern system fonts for optimal readability
-- **Responsive**: Automatically adjusts for mobile devices
-- **Accessibility**: High contrast and clear visibility
-
-Example CSS customization:
-```css
-.logo-text-modern {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  letter-spacing: -0.5px;
-}
-
-.logo-text-modern:hover {
-  transform: translateY(-1px);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-```
-
-## Troubleshooting
-
-### Logo not displaying
-- Clear browser cache and reload
-- Check file permissions for uploaded images
-- Verify image URL is accessible
-- Check browser console for JavaScript errors
-
-### Settings not saving
-- Ensure you have administrator privileges
-- Check Redmine logs for error messages
-- Verify database migrations were run successfully
-
-### Mobile display issues
-- Adjust logo dimensions for responsive design
-- Use relative units (em, rem, %) instead of fixed pixels
-- Test on different screen sizes
+### Image Logo Example
+- **Image**: Upload your company logo (recommended size: 150x50px)
+- **Position**: Center
+- **Margin**: 5px
+- **Padding**: 8px
 
 ## File Structure
 
 ```
 redmine_logo/
+├── init.rb                                 # Plugin registration
 ├── app/
-│   ├── controllers/
-│   │   └── logo_settings_controller.rb
 │   ├── helpers/
-│   │   └── logo_helper.rb
+│   │   └── logo_helper.rb                  # Logo rendering helper
 │   └── views/
-│       ├── logo_settings/
-│       │   └── _form.html.erb
-│       └── hooks/
+│       └── logo_settings/
+│           └── _form.html.erb              # Configuration form
 ├── assets/
 │   └── stylesheets/
-│       └── logo.css
+│       └── logo.css                        # Plugin styles
 ├── config/
-│   ├── locales/
-│   │   ├── en.yml
-│   │   └── zh.yml
-│   └── routes.rb
+│   └── locales/
+│       ├── en.yml                          # English translations
+│       └── zh.yml                          # Chinese translations
 ├── db/
 │   └── migrate/
-│       └── 001_create_logo_settings.rb
+│       └── 001_create_logo_settings.rb     # Database migration
 ├── lib/
 │   └── redmine_logo/
-│       └── view_listener.rb
-├── init.rb
-└── README.md
+│       └── view_listener.rb                # View hooks
+└── README.md                               # This file
 ```
 
-## Development
+## Browser Compatibility
 
-### Running Tests
-```bash
-cd /path/to/redmine
-RAILS_ENV=test bundle exec rake redmine:plugins:test PLUGIN=redmine_logo
-```
+- ✅ Chrome 20+
+- ✅ Firefox 29+
+- ✅ Safari 12.1+
+- ✅ Edge 18+
+- ⚠️ IE11: Color picker will fall back to text input
 
-### Code Style
-- Follow Ruby and Rails conventions
-- Use RuboCop for code linting
-- Maintain consistent indentation and formatting
+## Troubleshooting
 
-## Contributing
+### Logo not displaying
+1. Clear browser cache and reload
+2. Check that settings are saved in Administration → Logo Management
+3. Verify file permissions for uploaded images
+4. Restart Redmine service
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+### Color picker not working
+- IE11 does not support HTML5 color input, will fall back to text field
+- You can still manually enter color codes (e.g., #ffffff)
+
+### Mobile display issues
+- Adjust logo dimensions for responsive design
+- Use relative units (em, rem) instead of fixed pixels
+- Test on different screen sizes
 
 ## License
 
-This plugin is released under the MIT License. See LICENSE file for details.
+This plugin is released under the MIT License.
 
 ## Support
 
 For issues, questions, or contributions, please visit:
-- GitHub Issues: [Report bugs and request features]
-- Documentation: [Plugin wiki and guides]
+- GitHub Issues: https://github.com/carolcoral/redmine_logo/issues
 
 ## Changelog
 
 ### Version 1.0.0 (2026-02-02)
 - Initial release
 - Text and image logo support
-- Position control (left, center, right)
-- Precise dimension settings
-- Modern text styling with Uiverse design elements
+- Left and center positioning
+- Color picker for text color
+- Margin and padding control
 - Multi-language support (EN, ZH)
 - Responsive design
-- Image upload and URL support
-
-## Credits
-
-- Inspired by modern UI design principles
-- Text styling based on Uiverse design elements
-- Built for Redmine 6.1.1+ compatibility

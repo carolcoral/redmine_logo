@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="190bc3c1-2703-4c5d-ae8f-bb1ef81d4865" name="Changes" comment="change logo area and remove some settings">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/helpers/logo_helper.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers/logo_helper.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/logo_settings/_form.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/logo_settings/_form.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/stylesheets/logo.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/locales/en.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/locales/en.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/locales/zh.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/locales/zh.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init.rb" beforeDir="false" afterPath="$PROJECT_DIR$/init.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/redmine_logo/view_listener.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/redmine_logo/view_listener.rb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="396FaYgvXSBVJwMMePrvlEUMVX0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/liuxuewen/workspace/redmine-plugins/redmine_logo",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-WS-252.28539.21" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="190bc3c1-2703-4c5d-ae8f-bb1ef81d4865" name="Changes" comment="" />
+      <created>1770008677270</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1770008677270</updated>
+      <workItem from="1770008678693" duration="4003000" />
+    </task>
+    <task id="LOCAL-00001" summary="create redmine_plugin">
+      <option name="closed" value="true" />
+      <created>1770009139360</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1770009139360</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix @logo_settings is nil">
+      <option name="closed" value="true" />
+      <created>1770010380851</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1770010380851</updated>
+    </task>
+    <task id="LOCAL-00003" summary="change logo area and remove some settings">
+      <option name="closed" value="true" />
+      <created>1770015203386</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1770015203386</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="create redmine_plugin" />
+    <MESSAGE value="fix @logo_settings is nil" />
+    <MESSAGE value="change logo area and remove some settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="change logo area and remove some settings" />
+  </component>
+</project>
