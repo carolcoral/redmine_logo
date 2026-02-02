@@ -22,7 +22,6 @@ en:
   label_logo_position: "Logo Position"
   label_position_left: "Left"
   label_position_center: "Center"
-  label_position_right: "Right"
   label_logo_width: "Logo Width"
   label_logo_height: "Logo Height"
   label_logo_padding: "Padding"

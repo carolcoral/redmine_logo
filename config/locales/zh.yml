@@ -22,7 +22,6 @@ zh:
   label_logo_position: "Logo位置"
   label_position_left: "左侧"
   label_position_center: "居中"
-  label_position_right: "右侧"
   label_logo_width: "Logo宽度"
   label_logo_height: "Logo高度"
   label_logo_padding: "内边距"

@@ -1,14 +1,26 @@
 /* Redmine Logo Plugin - Modern CSS Styles */
 /* 基于Uiverse设计元素的现代化样式 */
 
-/* Logo容器基础样式 */
+/* 隐藏Redmine默认Logo */
+#header h1 {
+  display: none;
+}
+
+/* Logo容器基础样式 - 与右侧导航对齐 */
 #custom-logo-container {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  height: 100%;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #custom-logo-container:hover {
-  transform: translateY(-2px);
+  transform: translateY(-50%) translateY(-1px);
 }
 
 /* 文字Logo现代化样式 - 基于Uiverse设计元素 */
@@ -16,16 +28,18 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   text-decoration: none;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
   letter-spacing: -0.5px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  line-height: 1;
 }
 
 .logo-text-modern:hover {
-  transform: translateY(-1px);
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -33,7 +47,7 @@
 .logo-text-modern::after {
   content: '';
   position: absolute;
-  bottom: -3px;
+  bottom: 5px;
   left: 0;
   width: 0;
   height: 2px;
@@ -49,8 +63,11 @@
 /* 图片Logo样式 */
 #custom-logo-image {
   max-width: 100%;
+  max-height: 100%;
   height: auto;
+  width: auto;
   object-fit: contain;
+  display: block;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
 }
 
@@ -59,21 +76,33 @@
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
 }
 
+/* Logo链接样式 */
+#custom-logo-container a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   #custom-logo-container {
-    transform: scale(0.9);
-    transform-origin: center;
+    transform: translateY(-50%) scale(0.9);
   }
 
   .logo-text-modern {
     font-size: 18px !important;
   }
+
+  #custom-logo-image {
+    max-height: 80%;
+  }
 }
 
 @media (max-width: 480px) {
   #custom-logo-container {
-    transform: scale(0.8);
+    transform: translateY(-50%) scale(0.8);
+    left: 5px;
   }
 
   .logo-text-modern {
@@ -81,21 +110,8 @@
   }
 
   #custom-logo-image {
-    max-width: 120px !important;
+    max-height: 70%;
   }
-}
-
-/* Logo位置样式 */
-.logo-position-left {
-  text-align: left;
-}
-
-.logo-position-center {
-  text-align: center;
-}
-
-.logo-position-right {
-  text-align: right;
 }
 
 /* 配置表单样式 */

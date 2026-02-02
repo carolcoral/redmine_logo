@@ -2,11 +2,11 @@ module RedmineLogo
   class ViewListener < Redmine::Hook::ViewListener
     include LogoHelper
 
-    def view_layouts_base_body_bottom(context = {})
+    def view_layouts_base_html_head(context = {})
+      # 在head中添加CSS
       settings = Setting.plugin_redmine_logo || {}
       return '' if settings.blank? || settings['logo_type'].blank?
 
-      # 生成CSS样式
       css = generate_logo_css(settings)
       javascript = generate_logo_javascript(settings)
 
@@ -20,155 +20,150 @@ module RedmineLogo
       HTML
     end
 
+    def view_layouts_base_body_bottom(context = {})
+      # 在body底部添加Logo HTML
+      settings = Setting.plugin_redmine_logo || {}
+      return '' if settings.blank? || settings['logo_type'].blank?
+
+      logo_html = generate_logo_html(settings)
+      logo_html.html_safe
+    end
+
     private
 
     def generate_logo_css(settings)
       position = settings['logo_position'] || 'left'
+      
+      # 基础样式
       css = []
-
-      # 基础logo容器样式
-      css << "#header h1 { display: none; }" # 隐藏默认Redmine logo
-
-      # 根据位置设置logo样式
-      case position
-      when 'left'
-        css << <<~CSS
-          #custom-logo-container {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-          }
-        CSS
-      when 'right'
-        css << <<~CSS
-          #custom-logo-container {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-          }
-        CSS
-      when 'center'
+      css << "#header h1 { display: none; }"
+      
+      # Logo容器样式 - 根据位置调整
+      if position == 'center'
         css << <<~CSS
           #custom-logo-container {
             position: absolute;
             left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 100;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            height: 100%;
+          }
+        CSS
+      else # left
+        css << <<~CSS
+          #custom-logo-container {
+            position: absolute;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            height: 100%;
           }
         CSS
       end
-
-      # 添加现代文字logo样式（基于Uiverse设计元素）
+      
       css << <<~CSS
         .logo-text-modern {
           font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           text-decoration: none;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
+          display: inline-flex;
+          align-items: center;
+          cursor: pointer;
           letter-spacing: -0.5px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          height: 100%;
+          line-height: 1;
+          margin-right: 20px;
         }
-
         .logo-text-modern:hover {
-          transform: translateY(-1px);
-          text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
-
         .logo-text-modern::after {
           content: '';
           position: absolute;
-          bottom: -2px;
+          bottom: 5px;
           left: 0;
           width: 0;
           height: 2px;
-          background: linear-gradient(90deg, currentColor, rgba(255,255,255,0.5));
-          transition: width 0.3s ease;
+          background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.6));
+          border-radius: 2px;
+          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .logo-text-modern:hover::after {
           width: 100%;
         }
-
-        #header {
-          position: relative;
-        }
-
-        #custom-logo-container img {
+        #custom-logo-image {
           max-width: 100%;
+          max-height: 100%;
           height: auto;
+          width: auto;
           object-fit: contain;
+          display: block;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+          margin-right: 20px;
         }
-
-        .logo-position-left { text-align: left; }
-        .logo-position-center { text-align: center; }
-        .logo-position-right { text-align: right; }
+        #custom-logo-image:hover {
+          transform: scale(1.03);
+          filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+        }
+        #custom-logo-container a {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          text-decoration: none;
+        }
+        #main-menu ul {
+          padding-left: 120px; /* 为logo预留空间 */
+        }
+        @media (max-width: 768px) {
+          #custom-logo-container { transform: scale(0.9); }
+          .logo-text-modern { font-size: 18px !important; }
+          #main-menu ul { padding-left: 100px; }
+        }
+        @media (max-width: 480px) {
+          #custom-logo-container { transform: scale(0.8); }
+          .logo-text-modern { font-size: 16px !important; }
+          #main-menu ul { padding-left: 80px; }
+        }
       CSS
-
+      
       css.join("\n")
     end
 
     def generate_logo_javascript(settings)
       <<~JAVASCRIPT
         document.addEventListener('DOMContentLoaded', function() {
-          // 动态插入自定义logo
-          const header = document.querySelector('#header');
-          if (header && !document.querySelector('#custom-logo-container')) {
-            const logoContainer = document.createElement('div');
-            logoContainer.id = 'custom-logo-container';
-            logoContainer.className = 'logo-position-#{settings['logo_position'] || 'left'}';
-
-            const logoContent = #{logo_content_javascript(settings).to_json};
-            logoContainer.innerHTML = logoContent;
-
-            header.appendChild(logoContainer);
-
-            // 为文字logo添加动画效果
-            const logoText = logoContainer.querySelector('.logo-text-modern');
-            if (logoText) {
-              logoText.style.opacity = '0';
-              logoText.style.transform = 'translateY(10px)';
-              logoText.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-
-              setTimeout(function() {
-                logoText.style.opacity = '1';
-                logoText.style.transform = 'translateY(0)';
-              }, 100);
-            }
-
-            // 为图片logo添加淡入效果
-            const logoImage = logoContainer.querySelector('#custom-logo-image');
-            if (logoImage) {
-              logoImage.style.opacity = '0';
-              logoImage.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-
-              logoImage.addEventListener('load', function() {
-                this.style.opacity = '1';
-              });
-            }
+          // 为文字logo添加动画效果
+          const logoText = document.querySelector('#custom-logo-text');
+          if (logoText) {
+            logoText.style.opacity = '0';
+            logoText.style.transform = 'translateY(10px)';
+            logoText.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            setTimeout(function() {
+              logoText.style.opacity = '1';
+              logoText.style.transform = 'translateY(0)';
+            }, 100);
           }
 
-          // 添加响应式处理
-          function handleResize() {
-            const logoContainer = document.querySelector('#custom-logo-container');
-            const header = document.querySelector('#header');
-            if (logoContainer && header) {
-              const headerHeight = header.offsetHeight;
-              logoContainer.style.maxHeight = (headerHeight - 10) + 'px';
-            }
+          // 为图片logo添加淡入效果
+          const logoImage = document.querySelector('#custom-logo-image');
+          if (logoImage) {
+            logoImage.style.opacity = '0';
+            logoImage.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            logoImage.addEventListener('load', function() {
+              this.style.opacity = '1';
+            });
           }
-
-          window.addEventListener('resize', handleResize);
-          handleResize();
         });
       JAVASCRIPT
     end
 
-    def logo_content_javascript(settings)
+    def generate_logo_html(settings)
       if settings['logo_type'] == 'image' && settings['logo_image_url'].present?
+        # 图片Logo
         link_path = home_url
         image_tag = ActionController::Base.helpers.image_tag(
           settings['logo_image_url'],
@@ -176,8 +171,13 @@ module RedmineLogo
           style: logo_image_styles(settings),
           id: 'custom-logo-image'
         )
-        "<a href='#{link_path}'>#{image_tag}</a>"
+        <<~HTML
+          <div id="custom-logo-container">
+            <a href="#{link_path}">#{image_tag}</a>
+          </div>
+        HTML
       else
+        # 文字Logo
         link_path = home_url
         content_tag = ActionController::Base.helpers.content_tag(
           :span,
@@ -186,7 +186,11 @@ module RedmineLogo
           id: 'custom-logo-text',
           class: 'logo-text-modern'
         )
-        "<a href='#{link_path}' style='#{logo_link_styles(settings)}'>#{content_tag}</a>"
+        <<~HTML
+          <div id="custom-logo-container">
+            <a href="#{link_path}" style="#{logo_link_styles(settings)}">#{content_tag}</a>
+          </div>
+        HTML
       end
     end
   end

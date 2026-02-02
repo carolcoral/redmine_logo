@@ -8,10 +8,9 @@ A comprehensive logo management plugin for Redmine 6.1.1+ that allows customizat
 - **Text Logo**: Use custom text as your logo with modern styling
 - **Image Logo**: Upload and use custom image files (JPG, PNG, GIF, SVG)
 
-### 🎯 Position Control
-- **Left Alignment**: Display logo on the left side of navigation bar
-- **Center Alignment**: Display logo in the center of navigation bar
-- **Right Alignment**: Display logo on the right side of navigation bar
+### 🎯 Flexible Position
+- **Left Alignment**: Logo positioned on the left side of main menu
+- **Center Alignment**: Logo centered above the main menu
 
 ### 📐 Precise Dimension Control
 - Custom width and height settings
@@ -87,7 +86,7 @@ RAILS_ENV=production bundle exec rake tmp:cache:clear
 
 3. **Text Logo Settings**
    - Enter custom logo text
-   - Set text color (hex color codes or color names)
+   - Set text color using color picker or hex codes
    - Adjust font size (e.g., 24px, 1.5em, 2rem)
    - Select font weight (Normal, Medium, Semi-bold, Bold)
 
@@ -97,11 +96,11 @@ RAILS_ENV=production bundle exec rake tmp:cache:clear
    - View current logo preview
 
 5. **Display Settings**
-   - **Position**: Left, Center, or Right
+   - **Position**: Choose between left or center alignment above the main menu
    - **Width**: Set exact width (e.g., 150px, 10em, 50%)
    - **Height**: Set exact height (e.g., 50px, 3em)
    - **Padding**: Control spacing (e.g., 10px, 1em, 5px 10px)
-   - **Background Color**: Set background color if needed
+   - **Background Color**: Set background color using color picker or hex codes
 
 6. **Save Settings**
    - Click **Save** to apply changes
@@ -111,6 +110,7 @@ RAILS_ENV=production bundle exec rake tmp:cache:clear
 
 The text logo features modern styling inspired by Uiverse design elements:
 
+- **Flexible Positioning**: Choose between left or center alignment above the main menu
 - **Smooth Animations**: Subtle hover effects with smooth transitions
 - **Gradient Underline**: Animated underline effect on hover
 - **Typography**: Modern system fonts for optimal readability
