@@ -42,7 +42,7 @@ module RedmineLogo
       
       css = []
       
-      # Logo容器样式 - 固定高度25px
+      # Logo容器样式 - 自适应宽度
       if position == 'center'
         css << <<~CSS
           #custom-logo-container {
@@ -54,6 +54,8 @@ module RedmineLogo
             align-items: center;
             justify-content: center;
             height: #{logo_height};
+            width: auto;
+            max-width: 120px;  /* 减小最大宽度 */
             pointer-events: auto;
           }
         CSS
@@ -67,6 +69,8 @@ module RedmineLogo
             align-items: center;
             justify-content: flex-start;
             height: #{logo_height};
+            width: auto;
+            max-width: 120px;  /* 减小最大宽度 */
             pointer-events: auto;
           }
         CSS
@@ -110,9 +114,11 @@ module RedmineLogo
           height: 100%;
           width: auto;
           object-fit: contain;
-          display: block;
+          display: block !important;
+          visibility: visible !important;
           margin: 0;
           padding: 0;
+          opacity: 1 !important;
         }
         #custom-logo-container a {
           display: flex;
@@ -129,8 +135,14 @@ module RedmineLogo
         }
         /* 为左侧Logo预留空间 - 主页菜单与Logo保持10px间距 */
         #top-menu > ul {
-          padding-left: 10px; /* 只有10px间距，不是120px */
-          margin-left: calc(#{logo_height} + 10px); /* Logo宽度 + 10px间距 */
+          padding-left: 10px;
+          margin-left: 0; /* 移除自动间距 */
+          position: relative;
+          left: 10px; /* 确保10px间距 */
+        }
+        /* 图片logo场景下进一步缩减间距 */
+        #custom-logo-container img {
+          max-width: 100px !important; /* 限制图片宽度 */
         }
         /* 右侧菜单保持原位置 */
         #top-menu ul + ul {
@@ -223,13 +235,23 @@ module RedmineLogo
         first_letter = text[0]
         rest_of_text = text[1..-1]
         first_letter_color = settings['logo_first_letter_color'] || settings['logo_text_color'] || '#ffffff'
+        font_size = settings['logo_text_font_size'] || '20px'
+        
+        # 计算其他字母的字体大小（小8%）
+        if font_size.to_s.include?('px')
+          base_size = font_size.to_f
+          other_size = "#{(base_size * 0.92).round(1)}px"
+        else
+          other_size = font_size
+        end
         
         # 创建带首字母颜色的文字
         content_tag = if rest_of_text.present?
           ActionController::Base.helpers.content_tag(:span, first_letter, 
             style: "color: #{first_letter_color}", 
             class: 'logo-first-letter') +
-          ActionController::Base.helpers.content_tag(:span, rest_of_text)
+          ActionController::Base.helpers.content_tag(:span, rest_of_text,
+            style: "font-size: #{other_size}")
         else
           ActionController::Base.helpers.content_tag(:span, first_letter, 
             style: "color: #{first_letter_color}", 

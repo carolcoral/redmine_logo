@@ -4,13 +4,25 @@
    settings['logo_type'] ||= 'text'
    settings['logo_text'] ||= 'Redmine'
    settings['logo_text_color'] ||= '#ffffff'
-   settings['logo_text_font_size'] ||= '20px'
+   settings['logo_text_font_size'] ||= '26px'  # 固定字体大小26px
    settings['logo_text_font_weight'] ||= '600'
    settings['logo_position'] ||= 'left'
    settings['logo_image_url'] ||= ''
    settings['logo_margin'] ||= '0'
    settings['logo_padding'] ||= '8px'
 %>
+
+<%# 确保表单支持文件上传 %>
+<%= content_for :header_tags do %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.querySelector('form[action*="logo_settings"]');
+      if (form && !form.hasAttribute('enctype')) {
+        form.setAttribute('enctype', 'multipart/form-data');
+      }
+    });
+  </script>
+<% end %>
 
 <fieldset>
   <legend><%= l(:label_general_settings) %></legend>
@@ -37,7 +49,8 @@
     <legend><%= l(:label_text_logo_settings) %></legend>
     <p>
       <label for="logo_text"><%= l(:label_logo_text) %>:</label>
-      <%= text_field_tag 'settings[logo_text]', settings['logo_text'], size: 50 %>
+      <%= text_field_tag 'settings[logo_text]', settings['logo_text'], size: 10, maxlength: 10 %>
+      <em class="info">(最多10个字符)</em>
     </p>
     <p>
       <label for="logo_text_color"><%= l(:label_text_color) %>:</label>
@@ -46,11 +59,6 @@
     <p>
       <label for="logo_first_letter_color"><%= l(:label_first_letter_color) %>:</label>
       <%= color_field_tag 'settings[logo_first_letter_color]', settings['logo_first_letter_color'] %>
-    </p>
-    <p>
-      <label for="logo_text_font_size"><%= l(:label_font_size) %>:</label>
-      <%= text_field_tag 'settings[logo_text_font_size]', settings['logo_text_font_size'], size: 10 %>
-      <em class="info"><%= l(:text_size_example) %></em>
     </p>
     <p>
       <label for="logo_text_font_weight"><%= l(:label_font_weight) %>:</label>
@@ -71,22 +79,25 @@
     <legend><%= l(:label_image_logo_settings) %></legend>
     <p>
       <label for="logo_image_file"><%= l(:label_upload_logo) %>:</label>
-      <%= file_field_tag 'logo_image_file', accept: 'image/*' %>
+      <%= file_field_tag 'logo_image_file', accept: 'image/*', id: 'logo_image_file_input' %>
+      <button type="button" id="upload_logo_btn" class="button-small" style="margin-left: 10px;">上传图片</button>
       <em class="info"><%= l(:text_upload_info) %></em>
     </p>
-    <% if settings['logo_image_url'].present? %>
-      <p>
-        <label><%= l(:label_current_logo) %>:</label>
-        <span class="current-logo-preview">
-          <%= image_tag settings['logo_image_url'], style: "max-width: 200px; max-height: 60px; border: 1px solid #ccc;" %>
-        </span>
-      </p>
-    <% end %>
-    <p>
-      <label for="logo_image_url"><%= l(:label_logo_image_url) %>:</label>
-      <%= text_field_tag 'settings[logo_image_url]', settings['logo_image_url'], size: 50 %>
-      <em class="info"><%= l(:text_or_enter_url) %></em>
-    </p>
+    <div id="upload_status" style="display: none; margin: 10px 0; padding: 10px; border-radius: 3px;"></div>
+    <div id="image_preview_container" style="margin-top: 15px;">
+      <% if settings['logo_image_url'].present? %>
+        <p>
+          <label><%= l(:label_current_logo) %>:</label>
+          <span class="current-logo-preview">
+            <%= image_tag settings['logo_image_url'], style: "max-width: 200px; max-height: 60px; border: 1px solid #ccc;" %>
+          </span>
+        </p>
+      <% else %>
+        <p id="no_logo_text" style="color: #666; font-style: italic;">暂无上传的Logo图片</p>
+      <% end %>
+    </div>
+    <!-- 移除URL输入方式，只允许文件上传 -->
+    <%= hidden_field_tag 'settings[logo_image_url]', settings['logo_image_url'], id: 'logo_image_url_field' %>
   </fieldset>
 </div>
 
@@ -128,6 +139,11 @@
     const imageRadio = document.querySelector('input[name="settings[logo_type]"][value="image"]');
     const textSettings = document.getElementById('text_logo_settings');
     const imageSettings = document.getElementById('image_logo_settings');
+    const fileInput = document.getElementById('logo_image_file_input');
+    const uploadBtn = document.getElementById('upload_logo_btn');
+    const statusDiv = document.getElementById('upload_status');
+    const previewContainer = document.getElementById('image_preview_container');
+    const urlField = document.getElementById('logo_image_url_field');
 
     function toggleSettings() {
       if (textRadio.checked) {
@@ -141,5 +157,86 @@
 
     textRadio.addEventListener('change', toggleSettings);
     imageRadio.addEventListener('change', toggleSettings);
+
+    // 上传图片功能
+    if (uploadBtn && fileInput) {
+      uploadBtn.addEventListener('click', function() {
+        const file = fileInput.files[0];
+        if (!file) {
+          alert('请先选择一个图片文件');
+          return;
+        }
+
+        // 显示上传状态
+        statusDiv.style.display = 'block';
+        statusDiv.style.backgroundColor = '#e7f3ff';
+        statusDiv.style.border = '1px solid #b3d9ff';
+        statusDiv.innerHTML = '<span style="color: #0066cc;">正在上传图片...</span>';
+
+        // 创建表单数据
+        const formData = new FormData();
+        formData.append('logo_image_file', file);
+        formData.append('settings[logo_type]', 'image');
+        formData.append('settings[logo_image_url]', '');
+        formData.append('settings[plugin_enabled]', '1');
+
+        // 发送AJAX请求
+        fetch('<%= update_logo_settings_path %>', {
+          method: 'POST',
+          headers: {
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content || ''
+          },
+          body: formData
+        })
+        .then(response => response.json().catch(() => { return {redirected: true}; }))
+        .then(data => {
+          if (data.redirected) {
+            // 如果是重定向，刷新页面
+            window.location.reload();
+          } else if (data.success) {
+            // 显示成功状态
+            statusDiv.style.backgroundColor = '#d4edda';
+            statusDiv.style.border = '1px solid #c3e6cb';
+            statusDiv.innerHTML = '<span style="color: #155724;">图片上传成功！</span>';
+            
+            // 更新预览
+            if (data.image_url) {
+              urlField.value = data.image_url;
+              previewContainer.innerHTML = `
+                <p>
+                  <label>当前Logo:</label>
+                  <span class="current-logo-preview">
+                    <img src="${data.image_url}" style="max-width: 200px; max-height: 60px; border: 1px solid #ccc;">
+                  </span>
+                </p>
+              `;
+            }
+            
+            // 3秒后隐藏状态
+            setTimeout(() => {
+              statusDiv.style.display = 'none';
+            }, 3000);
+          } else {
+            // 显示错误状态
+            statusDiv.style.backgroundColor = '#f8d7da';
+            statusDiv.style.border = '1px solid #f5c6cb';
+            statusDiv.innerHTML = `<span style="color: #721c24;">上传失败: ${data.error || '未知错误'}</span>`;
+          }
+        })
+        .catch(error => {
+          console.error('Upload error:', error);
+          statusDiv.style.backgroundColor = '#f8d7da';
+          statusDiv.style.border = '1px solid #f5c6cb';
+          statusDiv.innerHTML = `<span style="color: #721c24;">上传错误: ${error.message}</span>`;
+        });
+      });
+
+      // 文件选择后也可以自动上传（可选）
+      fileInput.addEventListener('change', function() {
+        if (fileInput.files[0]) {
+          uploadBtn.style.display = 'inline-block';
+        }
+      });
+    }
   });
 </script>

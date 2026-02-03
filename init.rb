@@ -16,7 +16,7 @@ Redmine::Plugin.register :redmine_logo do
     'logo_text' => 'Redmine',
     'logo_text_color' => '#ffffff',
     'logo_first_letter_color' => '#ff6600',  # 首字母颜色
-    'logo_text_font_size' => '20px',
+    'logo_text_font_size' => '26px',  # 固定字体大小为26px
     'logo_text_font_weight' => '600',
     'logo_position' => 'left',
     'logo_image_url' => '',
