@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="190bc3c1-2703-4c5d-ae8f-bb1ef81d4865" name="Changes" comment="change logo area and remove some settings&#10;support words logo">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="190bc3c1-2703-4c5d-ae8f-bb1ef81d4865" name="Changes" comment="complate words logo and pic logo" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +50,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770008677270</updated>
-      <workItem from="1770008678693" duration="5563000" />
+      <workItem from="1770008678693" duration="6342000" />
     </task>
     <task id="LOCAL-00001" summary="create redmine_plugin">
       <option name="closed" value="true" />
@@ -86,7 +84,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770022835708</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="complate words logo and pic logo">
+      <option name="closed" value="true" />
+      <created>1770087621823</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1770087621823</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,6 +103,7 @@
     <MESSAGE value="fix @logo_settings is nil" />
     <MESSAGE value="change logo area and remove some settings" />
     <MESSAGE value="change logo area and remove some settings&#10;support words logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="change logo area and remove some settings&#10;support words logo" />
+    <MESSAGE value="complate words logo and pic logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="complate words logo and pic logo" />
   </component>
 </project>
