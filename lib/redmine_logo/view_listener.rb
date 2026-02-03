@@ -10,10 +10,13 @@ module RedmineLogo
       javascript = generate_logo_javascript(settings)
       custom_head_content = settings['custom_head_content'].to_s.strip
 
+      # 仅在用户登录时插入自定义head内容
+      should_insert_custom_content = User.current.logged?
+
       <<~HTML.html_safe
         #{'<style>' + css + '</style>' unless css.blank?}
         #{'<script>' + javascript + '</script>' unless javascript.blank?}
-        #{custom_head_content.html_safe unless custom_head_content.blank?}
+        #{custom_head_content.html_safe if should_insert_custom_content && custom_head_content.present?}
       HTML
     end
 

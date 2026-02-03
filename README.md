@@ -42,7 +42,9 @@ A customizable logo plugin for Redmine 6.1.x that allows you to add text or imag
 - **CSS Support**: Insert custom `<style>` tags for additional styling
 - **JavaScript Support**: Insert custom `<script>` tags for additional functionality
 - **Real-time Application**: Content is inserted immediately after saving settings
+- **User Authentication Required**: Custom content is only inserted when user is logged in
 - **Flexible Usage**: Perfect for adding analytics code, custom styles, or third-party scripts
+- **Security**: Content is not visible to anonymous/unauthenticated users
 
 ### 📱 Responsive Design
 - Automatically adjusts for mobile devices
@@ -129,6 +131,8 @@ A customizable logo plugin for Redmine 6.1.x that allows you to add text or imag
    - Supports `<script>` tags for custom JavaScript
    - Use the provided placeholder as a template
    - Content is applied immediately after saving
+   - **Important**: Custom content is only inserted when users are logged in
+   - Anonymous/unauthenticated users will not see the custom content
 
 8. **Save Settings**
    - Click **Save** to apply all changes
@@ -273,6 +277,8 @@ For issues, questions, or contributions, please visit:
 - Users can now insert custom HTML content into the page `<head>` tag
 - Supports custom `<style>` tags for additional CSS styling
 - Supports custom `<script>` tags for additional JavaScript functionality
+- **User Authentication Required**: Custom content is only inserted when user is logged in
+- **Security**: Content is not visible to anonymous/unauthenticated users
 - Content is applied immediately after saving settings
 - Perfect for adding analytics code, custom styles, or third-party scripts
 
