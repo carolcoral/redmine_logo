@@ -34,6 +34,33 @@
   </p>
 </fieldset>
 
+<%# 当checkbox未勾选时，添加一个隐藏的input来确保settings[plugin_enabled]被提交 %>
+<%= hidden_field_tag 'settings[plugin_enabled]', '0', id: 'plugin_enabled_hidden' %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var checkbox = document.querySelector('input[name="settings[plugin_enabled]"][type="checkbox"]');
+    var hiddenInput = document.getElementById('plugin_enabled_hidden');
+    
+    if (checkbox && hiddenInput) {
+      // 根据checkbox状态启用或禁用hidden input
+      function updateHiddenInput() {
+        if (checkbox.checked) {
+          hiddenInput.disabled = true;  // 禁用hidden input，只提交checkbox的值'1'
+        } else {
+          hiddenInput.disabled = false; // 启用hidden input，提交值'0'
+        }
+      }
+      
+      // 初始化
+      updateHiddenInput();
+      
+      // 监听checkbox变化
+      checkbox.addEventListener('change', updateHiddenInput);
+    }
+  });
+</script>
+
 <fieldset>
   <legend><%= l(:label_logo_type) %></legend>
   <p>

@@ -26,7 +26,7 @@ Redmine::Plugin.register :redmine_logo do
     'custom_head_content' => ''  # 自定义<head>内容
   }, partial: 'logo_settings/form'
 
-  menu :admin_menu, :logo_settings, { controller: 'logo_settings', action: 'update' }, caption: :label_logo_plugin, html: { class: 'icon icon-settings' }
+  menu :admin_menu, :logo_settings, { controller: 'settings', action: 'plugin', id: 'redmine_logo' }, caption: :label_logo_plugin, html: { class: 'icon icon-settings' }
 end
 
 require_relative 'lib/redmine_logo/view_listener'

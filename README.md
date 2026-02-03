@@ -2,6 +2,8 @@
 
 A customizable logo plugin for Redmine 6.1.x that allows you to add text or image logos to the top menu area with flexible positioning and styling options.
 
+![screenshots](screenshots/1.png)
+
 ## Features
 
 ### 🎨 Logo Type Support
