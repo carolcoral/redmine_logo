@@ -8,14 +8,12 @@ module RedmineLogo
 
       css = generate_logo_css(settings)
       javascript = generate_logo_javascript(settings)
+      custom_head_content = settings['custom_head_content'].to_s.strip
 
       <<~HTML.html_safe
-        <style>
-          #{css}
-        </style>
-        <script>
-          #{javascript}
-        </script>
+        #{'<style>' + css + '</style>' unless css.blank?}
+        #{'<script>' + javascript + '</script>' unless javascript.blank?}
+        #{custom_head_content.html_safe unless custom_head_content.blank?}
       HTML
     end
 
@@ -46,7 +44,8 @@ module RedmineLogo
       if position == 'center'
         css << <<~CSS
           #custom-logo-container {
-            position: absolute;
+            position: relative;
+            float: left;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
@@ -55,14 +54,14 @@ module RedmineLogo
             justify-content: center;
             height: #{logo_height};
             width: auto;
-            max-width: 120px;  /* 减小最大宽度 */
             pointer-events: auto;
           }
         CSS
       else # left
         css << <<~CSS
           #custom-logo-container {
-            position: absolute;
+            position: relative;
+            float: left;
             left: 0;
             z-index: 1000;
             display: flex;
@@ -70,7 +69,6 @@ module RedmineLogo
             justify-content: flex-start;
             height: #{logo_height};
             width: auto;
-            max-width: 120px;  /* 减小最大宽度 */
             pointer-events: auto;
           }
         CSS

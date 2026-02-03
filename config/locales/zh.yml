@@ -29,6 +29,8 @@ zh:
   label_logo_padding: "内边距"
   label_button_save: "保存"
   label_button_cancel: "取消"
+  label_custom_head_content: "自定义Head内容"
+  label_custom_head_content_description: "自定义<head>标签内容"
 
   text_plugin_enabled_info: "勾选以启用Logo显示"
   text_size_example: "例如：20px, 1.5em, 2rem"
@@ -36,6 +38,7 @@ zh:
   text_padding_example: "例如：8px, 10px, 5px 15px"
   text_upload_info: "支持格式：JPG, PNG, GIF, SVG"
   text_or_enter_url: "或输入图片URL"
+  text_custom_head_content_info: "在此输入自定义的HTML内容（如<style>、<script>等），这些内容将被插入到页面的<head>标签中。支持CSS和JavaScript代码。"
 
   notice_successful_update: "设置保存成功。"
   notice_error_update: "保存设置出错：%{message}"

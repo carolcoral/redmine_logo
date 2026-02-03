@@ -10,6 +10,7 @@
    settings['logo_image_url'] ||= ''
    settings['logo_margin'] ||= '0'
    settings['logo_padding'] ||= '8px'
+   settings['custom_head_content'] ||= ''
 %>
 
 <%# 确保表单支持文件上传 %>
@@ -49,8 +50,8 @@
     <legend><%= l(:label_text_logo_settings) %></legend>
     <p>
       <label for="logo_text"><%= l(:label_logo_text) %>:</label>
-      <%= text_field_tag 'settings[logo_text]', settings['logo_text'], size: 10, maxlength: 10 %>
-      <em class="info">(最多10个字符)</em>
+      <%= text_field_tag 'settings[logo_text]', settings['logo_text'], size: 30, maxlength: 30 %>
+      <em class="info">(最多30个字符)</em>
     </p>
     <p>
       <label for="logo_text_color"><%= l(:label_text_color) %>:</label>
@@ -120,6 +121,20 @@
     <label for="logo_padding"><%= l(:label_logo_padding) %>:</label>
     <%= text_field_tag 'settings[logo_padding]', settings['logo_padding'], size: 10 %>
     <em class="info"><%= l(:text_padding_example) %></em>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend><%= l(:label_custom_head_content) %></legend>
+  <p>
+    <label for="custom_head_content"><%= l(:label_custom_head_content_description) %>:</label>
+    <%= text_area_tag 'settings[custom_head_content]', settings['custom_head_content'], 
+          rows: 8, cols: 60, 
+          style: "width: 100%; max-width: 600px; font-family: monospace;",
+          placeholder: "<style>\n  /* 自定义CSS样式 */\n  body { background-color: #f5f5f5; }\n</style>\n\n<script>\n  // 自定义JavaScript\n  console.log('Custom script loaded');\n</script>" %>
+  </p>
+  <p class="info">
+    <%= l(:text_custom_head_content_info) %>
   </p>
 </fieldset>
 

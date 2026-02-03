@@ -35,6 +35,13 @@ A customizable logo plugin for Redmine 6.1.x that allows you to add text or imag
 - **Enable/Disable Switch**: Toggle logo display on/off without removing settings
 - Changes apply immediately after saving
 
+### 🔧 Custom Head Content
+- **Custom HTML Insertion**: Add custom content to the page `<head>` tag
+- **CSS Support**: Insert custom `<style>` tags for additional styling
+- **JavaScript Support**: Insert custom `<script>` tags for additional functionality
+- **Real-time Application**: Content is inserted immediately after saving settings
+- **Flexible Usage**: Perfect for adding analytics code, custom styles, or third-party scripts
+
 ### 📱 Responsive Design
 - Automatically adjusts for mobile devices
 - Maintains alignment and readability
@@ -113,7 +120,15 @@ A customizable logo plugin for Redmine 6.1.x that allows you to add text or imag
    - **Margin**: Control outer spacing (e.g., 0, 5px, 10px 15px)
    - **Padding**: Control inner spacing (e.g., 8px, 10px, 5px 15px)
 
-7. **Save Settings**
+7. **Custom Head Content (Optional)**
+   - Expand the **Custom Head Content** section
+   - Enter custom HTML content to be inserted into the page `<head>` tag
+   - Supports `<style>` tags for custom CSS
+   - Supports `<script>` tags for custom JavaScript
+   - Use the provided placeholder as a template
+   - Content is applied immediately after saving
+
+8. **Save Settings**
    - Click **Save** to apply all changes
    - For image logos, remember to save after uploading
    - Changes take effect immediately
@@ -143,6 +158,39 @@ A customizable logo plugin for Redmine 6.1.x that allows you to add text or imag
 - **Margin**: 0
 - **Padding**: 8px
 - **Max Width**: 120px (automatically constrained to prevent layout issues)
+
+### Custom Head Content Example
+- **CSS Customization**: Add a custom style tag
+  ```html
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    #header {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+  ```
+- **JavaScript Customization**: Add a custom script tag
+  ```html
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Custom script loaded from Redmine Logo Plugin');
+      // Your custom JavaScript code here
+    });
+  </script>
+  ```
+- **Third-party Integration**: Add analytics or tracking code
+  ```html
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+  ```
 
 ## File Structure
 
@@ -217,6 +265,14 @@ For issues, questions, or contributions, please visit:
 - GitHub Issues: https://github.com/carolcoral/redmine_logo/issues
 
 ## Changelog
+
+### Version 1.0.2 (2026-02-03)
+- Added **Custom Head Content** feature
+- Users can now insert custom HTML content into the page `<head>` tag
+- Supports custom `<style>` tags for additional CSS styling
+- Supports custom `<script>` tags for additional JavaScript functionality
+- Content is applied immediately after saving settings
+- Perfect for adding analytics code, custom styles, or third-party scripts
 
 ### Version 1.0.1 (2026-02-03)
 - Added plugin enable/disable switch

@@ -3,8 +3,8 @@ require 'redmine'
 Redmine::Plugin.register :redmine_logo do
   name 'Redmine Logo Plugin'
   author 'carolcoral'
-  description 'Customizable logo plugin for Redmine 6.1.x with support for text or image logo in top menu area'
-  version '1.0.0'
+  description 'Customizable logo plugin for Redmine 6.1.x with support for text or image logo in top menu area, custom head content insertion, and more'
+  version '1.0.2'
   url 'https://github.com/carolcoral/redmine_logo'
   author_url 'https://github.com/carolcoral'
 
@@ -22,7 +22,8 @@ Redmine::Plugin.register :redmine_logo do
     'logo_image_url' => '',
     'logo_margin' => '0',
     'logo_padding' => '8px',
-    'logo_height' => '25px'  # Logo高度
+    'logo_height' => '25px',  # Logo高度
+    'custom_head_content' => ''  # 自定义<head>内容
   }, partial: 'logo_settings/form'
 
   menu :admin_menu, :logo_settings, { controller: 'logo_settings', action: 'update' }, caption: :label_logo_plugin, html: { class: 'icon icon-settings' }
