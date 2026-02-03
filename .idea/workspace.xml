@@ -4,144 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="190bc3c1-2703-4c5d-ae8f-bb1ef81d4865" name="Changes" comment="unavailable insert head content when user not logged">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="cdadbd83-aef1-41c8-a253-64df9059255e" name="Changes" comment="change readme and fix some bug">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/logo_settings/_form.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/logo_settings/_form.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/redmine_logo/view_listener.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/redmine_logo/view_listener.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="396FaYgvXSBVJwMMePrvlEUMVX0" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/liuxuewen/workspace/redmine-plugins/redmine_logo&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "master"
   }
-}</component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-WS-252.28539.21" />
-      </set>
-    </attachedChunks>
-  </component>
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="190bc3c1-2703-4c5d-ae8f-bb1ef81d4865" name="Changes" comment="" />
-      <created>1770008677270</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1770008677270</updated>
-      <workItem from="1770008678693" duration="10957000" />
-    </task>
-    <task id="LOCAL-00001" summary="create redmine_plugin">
-      <option name="closed" value="true" />
-      <created>1770009139360</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1770009139360</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fix @logo_settings is nil">
-      <option name="closed" value="true" />
-      <created>1770010380851</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1770010380851</updated>
-    </task>
-    <task id="LOCAL-00003" summary="change logo area and remove some settings">
-      <option name="closed" value="true" />
-      <created>1770015203386</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1770015203386</updated>
-    </task>
-    <task id="LOCAL-00004" summary="change logo area and remove some settings&#10;support words logo">
-      <option name="closed" value="true" />
-      <created>1770022835708</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1770022835708</updated>
-    </task>
-    <task id="LOCAL-00005" summary="complate words logo and pic logo">
-      <option name="closed" value="true" />
-      <created>1770087621823</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1770087621823</updated>
-    </task>
-    <task id="LOCAL-00006" summary="sync README.md">
-      <option name="closed" value="true" />
-      <created>1770087894028</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1770087894028</updated>
-    </task>
-    <task id="LOCAL-00007" summary="fix logo width and position&#10;support custom content in head on page">
-      <option name="closed" value="true" />
-      <created>1770089250582</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1770089250582</updated>
-    </task>
-    <task id="LOCAL-00008" summary="fix logo width and position&#10;support custom content in head on page">
-      <option name="closed" value="true" />
-      <created>1770089938313</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1770089938313</updated>
-    </task>
-    <task id="LOCAL-00009" summary="unavailable insert head content when user not logged">
-      <option name="closed" value="true" />
-      <created>1770091055172</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1770091055173</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="create redmine_plugin" />
-    <MESSAGE value="fix @logo_settings is nil" />
-    <MESSAGE value="change logo area and remove some settings" />
-    <MESSAGE value="change logo area and remove some settings&#10;support words logo" />
-    <MESSAGE value="complate words logo and pic logo" />
-    <MESSAGE value="sync README.md" />
-    <MESSAGE value="fix logo width and position&#10;support custom content in head on page" />
-    <MESSAGE value="unavailable insert head content when user not logged" />
-    <option name="LAST_COMMIT_MESSAGE" value="unavailable insert head content when user not logged" />
   </component>
 </project>

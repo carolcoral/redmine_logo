@@ -46,9 +46,8 @@ module RedmineLogo
       # Logo容器样式 - 自适应宽度
       if position == 'center'
         css << <<~CSS
-          #custom-logo-container {
-            position: relative;
-            float: left;
+          #redmine_logo-custom-logo-container {
+            position: absolute;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
@@ -59,10 +58,18 @@ module RedmineLogo
             width: auto;
             pointer-events: auto;
           }
+          /* 当logo居中时，修改#top-menu > ul的position为absolute */
+          #top-menu > ul:first-child {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-left: 0;
+            margin-left: 0;
+          }
         CSS
       else # left
         css << <<~CSS
-          #custom-logo-container {
+          #redmine_logo-custom-logo-container {
             position: relative;
             float: left;
             left: 0;
@@ -78,7 +85,7 @@ module RedmineLogo
       end
       
       css << <<~CSS
-        .logo-text-modern {
+        .redmine_logo-logo-text-modern {
           font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           text-decoration: none;
           position: relative;
@@ -95,21 +102,21 @@ module RedmineLogo
           padding: 0;
         }
         /* 移除悬停效果 */
-        .logo-text-modern:hover {
+        .redmine_logo-logo-text-modern:hover {
           /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */
         }
         /* 移除下划线动画 */
-        .logo-text-modern::after {
+        .redmine_logo-logo-text-modern::after {
           /* display: none; */
         }
-        .logo-text-modern:hover::after {
+        .redmine_logo-logo-text-modern:hover::after {
           /* width: 100%; */
         }
         /* 首字母样式 */
-        .logo-first-letter {
+        .redmine_logo-logo-first-letter {
           font-weight: bold;
         }
-        #custom-logo-image {
+        #redmine_logo-custom-logo-image {
           max-width: 100%;
           max-height: 100%;
           height: 100%;
@@ -121,7 +128,7 @@ module RedmineLogo
           padding: 0;
           opacity: 1 !important;
         }
-        #custom-logo-container a {
+        #redmine_logo-custom-logo-container a {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -134,15 +141,8 @@ module RedmineLogo
         #top-menu {
           position: relative;
         }
-        /* 为左侧Logo预留空间 - 主页菜单与Logo保持10px间距 */
-        #top-menu > ul {
-          padding-left: 10px;
-          margin-left: 0; /* 移除自动间距 */
-          position: relative;
-          left: 10px; /* 确保10px间距 */
-        }
         /* 图片logo场景下进一步缩减间距 */
-        #custom-logo-container img {
+        #redmine_logo-custom-logo-container img {
           max-width: 100px !important; /* 限制图片宽度 */
         }
         /* 右侧菜单保持原位置 */
@@ -151,12 +151,12 @@ module RedmineLogo
           padding-left: 0;
         }
         @media (max-width: 768px) {
-          #custom-logo-container { transform: scale(0.9); }
-          .logo-text-modern { font-size: 16px !important; }
+          #redmine_logo-custom-logo-container { transform: scale(0.9); }
+          .redmine_logo-logo-text-modern { font-size: 16px !important; }
         }
         @media (max-width: 480px) {
-          #custom-logo-container { transform: scale(0.8); }
-          .logo-text-modern { font-size: 14px !important; }
+          #redmine_logo-custom-logo-container { transform: scale(0.8); }
+          .redmine_logo-logo-text-modern { font-size: 14px !important; }
         }
       CSS
       
@@ -167,7 +167,7 @@ module RedmineLogo
       <<~JAVASCRIPT
         document.addEventListener('DOMContentLoaded', function() {
           // 为文字logo添加动画效果
-          const logoText = document.querySelector('#custom-logo-text');
+          const logoText = document.querySelector('#redmine_logo-custom-logo-text');
           if (logoText) {
             logoText.style.opacity = '0';
             logoText.style.transform = 'translateY(10px)';
@@ -179,7 +179,7 @@ module RedmineLogo
           }
 
           // 为图片logo添加淡入效果
-          const logoImage = document.querySelector('#custom-logo-image');
+          const logoImage = document.querySelector('#redmine_logo-custom-logo-image');
           if (logoImage) {
             logoImage.style.opacity = '0';
             logoImage.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -196,7 +196,7 @@ module RedmineLogo
         (function() {
           function insertLogo() {
             const topMenu = document.getElementById('top-menu');
-            const logoContainer = document.getElementById('custom-logo-container');
+            const logoContainer = document.getElementById('redmine_logo-custom-logo-container');
             
             if (topMenu && logoContainer) {
               // 显示Logo容器并插入
@@ -223,10 +223,10 @@ module RedmineLogo
           settings['logo_image_url'],
           alt: settings['logo_text'] || 'Redmine',
           style: logo_image_styles(settings),
-          id: 'custom-logo-image'
+          id: 'redmine_logo-custom-logo-image'
         )
         <<~HTML
-          <div id="custom-logo-container" style="display:none;">
+          <div id="redmine_logo-custom-logo-container" style="display:none;">
             <a href="#{link_path}">#{image_tag}</a>
           </div>
         HTML
@@ -250,25 +250,25 @@ module RedmineLogo
         content_tag = if rest_of_text.present?
           ActionController::Base.helpers.content_tag(:span, first_letter, 
             style: "color: #{first_letter_color}", 
-            class: 'logo-first-letter') +
+            class: 'redmine_logo-logo-first-letter') +
           ActionController::Base.helpers.content_tag(:span, rest_of_text,
             style: "font-size: #{other_size}")
         else
           ActionController::Base.helpers.content_tag(:span, first_letter, 
             style: "color: #{first_letter_color}", 
-            class: 'logo-first-letter')
+            class: 'redmine_logo-logo-first-letter')
         end
         
         # 包装在logo-text-modern中
         full_content = ActionController::Base.helpers.content_tag(:span, 
           content_tag, 
           style: logo_text_styles(settings),
-          id: 'custom-logo-text',
-          class: 'logo-text-modern'
+          id: 'redmine_logo-custom-logo-text',
+          class: 'redmine_logo-logo-text-modern'
         )
         
         <<~HTML
-          <div id="custom-logo-container" style="display:none;">
+          <div id="redmine_logo-custom-logo-container" style="display:none;">
             <a href="#{link_path}" style="#{logo_link_styles(settings)}">#{full_content}</a>
           </div>
         HTML
