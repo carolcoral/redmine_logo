@@ -2,7 +2,7 @@
 
 A customizable logo plugin for Redmine 6.1.x with text/image logo support, flexible positioning, custom head content insertion, and CSS namespace isolation.
 
-![screenshots](screenshots/1.png)
+![screenshots](screenshots/2.png)
 
 ## Features
 
