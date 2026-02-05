@@ -150,13 +150,12 @@ module RedmineLogo
           margin-left: auto;
           padding-left: 0;
         }
+        /* 修复页面抖动问题 - 移除transform和固定字体大小 */
         @media (max-width: 768px) {
-          #redmine_logo-custom-logo-container { transform: scale(0.9); }
-          .redmine_logo-logo-text-modern { font-size: 16px !important; }
+          .redmine_logo-logo-text-modern { font-size: 18px !important; }
         }
         @media (max-width: 480px) {
-          #redmine_logo-custom-logo-container { transform: scale(0.8); }
-          .redmine_logo-logo-text-modern { font-size: 14px !important; }
+          .redmine_logo-logo-text-modern { font-size: 16px !important; }
         }
       CSS
       
@@ -199,80 +198,106 @@ module RedmineLogo
             const logoContainer = document.getElementById('redmine_logo-custom-logo-container');
             
             if (topMenu && logoContainer) {
-              // 显示Logo容器并插入
+              // 检查是否已经插入，避免重复操作
+              if (logoContainer.parentNode === topMenu) {
+                return;
+              }
+              
+              // 使用更平滑的方式插入Logo，减少布局抖动
+              logoContainer.style.visibility = 'hidden';
               logoContainer.style.display = 'flex';
               topMenu.insertBefore(logoContainer, topMenu.firstChild);
+              
+              // 使用requestAnimationFrame减少重排
+              requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                  logoContainer.style.visibility = 'visible';
+                });
+              });
             } else {
               setTimeout(insertLogo, 100);
             }
           }
           
+          // 确保在DOM完全加载后执行
           if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', insertLogo);
+            document.addEventListener('DOMContentLoaded', function() {
+              // 延迟执行，确保其他脚本已完成
+              setTimeout(insertLogo, 50);
+            });
           } else {
-            insertLogo();
+            setTimeout(insertLogo, 50);
           }
         })();
       JAVASCRIPT
     end
 
     def generate_logo_html(settings)
-      if settings['logo_type'] == 'image' && settings['logo_image_url'].present?
-        link_path = home_url
+      link_path = home_url
+      
+      # 生成文字Logo
+      text = settings['logo_text'] || 'Redmine'
+      first_letter = text[0]
+      rest_of_text = text[1..-1]
+      first_letter_color = settings['logo_first_letter_color'] || settings['logo_text_color'] || '#ffffff'
+      font_size = settings['logo_text_font_size'] || '20px'
+      
+      # 计算其他字母的字体大小（小8%）
+      if font_size.to_s.include?('px')
+        base_size = font_size.to_f
+        other_size = "#{(base_size * 0.92).round(1)}px"
+      else
+        other_size = font_size
+      end
+      
+      # 创建带首字母颜色的文字
+      content_tag = if rest_of_text.present?
+        ActionController::Base.helpers.content_tag(:span, first_letter, 
+          style: "color: #{first_letter_color}", 
+          class: 'redmine_logo-logo-first-letter') +
+        ActionController::Base.helpers.content_tag(:span, rest_of_text,
+          style: "font-size: #{other_size}")
+      else
+        ActionController::Base.helpers.content_tag(:span, first_letter, 
+          style: "color: #{first_letter_color}", 
+          class: 'redmine_logo-logo-first-letter')
+      end
+      
+      # 包装在logo-text-modern中
+      text_content = ActionController::Base.helpers.content_tag(:span, 
+        content_tag, 
+        style: logo_text_styles(settings),
+        id: 'redmine_logo-custom-logo-text',
+        class: 'redmine_logo-logo-text-modern'
+      )
+      
+      # 生成图片Logo（如果有图片URL）
+      image_content = ""
+      if settings['logo_image_url'].present?
         image_tag = ActionController::Base.helpers.image_tag(
           settings['logo_image_url'],
           alt: settings['logo_text'] || 'Redmine',
           style: logo_image_styles(settings),
           id: 'redmine_logo-custom-logo-image'
         )
-        <<~HTML
-          <div id="redmine_logo-custom-logo-container" style="display:none;">
-            <a href="#{link_path}">#{image_tag}</a>
-          </div>
-        HTML
-      else
-        link_path = home_url
-        text = settings['logo_text'] || 'Redmine'
-        first_letter = text[0]
-        rest_of_text = text[1..-1]
-        first_letter_color = settings['logo_first_letter_color'] || settings['logo_text_color'] || '#ffffff'
-        font_size = settings['logo_text_font_size'] || '20px'
-        
-        # 计算其他字母的字体大小（小8%）
-        if font_size.to_s.include?('px')
-          base_size = font_size.to_f
-          other_size = "#{(base_size * 0.92).round(1)}px"
-        else
-          other_size = font_size
-        end
-        
-        # 创建带首字母颜色的文字
-        content_tag = if rest_of_text.present?
-          ActionController::Base.helpers.content_tag(:span, first_letter, 
-            style: "color: #{first_letter_color}", 
-            class: 'redmine_logo-logo-first-letter') +
-          ActionController::Base.helpers.content_tag(:span, rest_of_text,
-            style: "font-size: #{other_size}")
-        else
-          ActionController::Base.helpers.content_tag(:span, first_letter, 
-            style: "color: #{first_letter_color}", 
-            class: 'redmine_logo-logo-first-letter')
-        end
-        
-        # 包装在logo-text-modern中
-        full_content = ActionController::Base.helpers.content_tag(:span, 
-          content_tag, 
-          style: logo_text_styles(settings),
-          id: 'redmine_logo-custom-logo-text',
-          class: 'redmine_logo-logo-text-modern'
-        )
-        
-        <<~HTML
-          <div id="redmine_logo-custom-logo-container" style="display:none;">
-            <a href="#{link_path}" style="#{logo_link_styles(settings)}">#{full_content}</a>
-          </div>
+        image_content = <<~HTML
+          <span id="redmine_logo-image-logo-wrapper" style="display: #{settings['logo_type'] == 'image' ? 'block' : 'none'};">
+            #{image_tag}
+          </span>
         HTML
       end
+      
+      # 生成完整的Logo容器，包含文字和图片两种类型
+      <<~HTML
+        <div id="redmine_logo-custom-logo-container" style="display:none;">
+          <a href="#{link_path}" style="#{logo_link_styles(settings)}">
+            <span id="redmine_logo-text-logo-wrapper" style="display: #{settings['logo_type'] == 'text' ? 'block' : 'none'};">
+              #{text_content}
+            </span>
+            #{image_content}
+          </a>
+        </div>
+      HTML
     end
   end
 end

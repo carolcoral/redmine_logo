@@ -29,6 +29,7 @@ ja:
   label_logo_padding: "パディング"
   label_button_save: "保存"
   label_button_cancel: "キャンセル"
+  label_custom_system_url: "システムアクセスURL"
   label_custom_head_content: "カスタムヘッドコンテンツ"
   label_custom_head_content_description: "カスタム<head>タグコンテンツ"
 
@@ -38,6 +39,7 @@ ja:
   text_padding_example: "例: 8px, 10px, 5px 15px"
   text_upload_info: "サポートフォーマット: JPG, PNG, GIF, SVG"
   text_or_enter_url: "または画像URLを入力"
+  text_custom_system_url_info: "デフォルトアドレス（例：http://localhost:3000）を置き換えるカスタムシステムアクセスURL。例：https://redmine.example.com"
   text_custom_head_content_info: "ページの<head>タグに挿入されるカスタムHTMLコンテンツ（<style>、<script>など）を入力してください。CSSとJavaScriptコードをサポートします。"
 
   notice_successful_update: "設定が正常に保存されました。"

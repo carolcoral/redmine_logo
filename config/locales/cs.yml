@@ -29,6 +29,7 @@ cs:
   label_logo_padding: "Odsazení"
   label_button_save: "Uložit"
   label_button_cancel: "Zrušit"
+  label_custom_system_url: "URL Přístupu k Systému"
   label_custom_head_content: "Vlastní obsah hlavičky"
   label_custom_head_content_description: "Vlastní obsah značky <head>"
 
@@ -38,6 +39,7 @@ cs:
   text_padding_example: "např.: 8px, 10px, 5px 15px"
   text_upload_info: "Podporované formáty: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Nebo zadejte URL obrázku"
+  text_custom_system_url_info: "Vlastní URL přístupu k systému, která nahradí výchozí adresu (např. http://localhost:3000). Příklad: https://redmine.example.com"
   text_custom_head_content_info: "Zadejte vlastní obsah HTML (jako <style>, <script> atd.), který bude vložen do značky <head> stránky. Podporuje kód CSS a JavaScript."
 
   notice_successful_update: "Nastavení bylo úspěšně uloženo."

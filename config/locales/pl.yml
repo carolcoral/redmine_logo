@@ -29,6 +29,7 @@ pl:
   label_logo_padding: "Odstęp"
   label_button_save: "Zapisz"
   label_button_cancel: "Anuluj"
+  label_custom_system_url: "URL Dostępu do Systemu"
   label_custom_head_content: "Niestandardowa Zawartość Head"
   label_custom_head_content_description: "Niestandardowa Zawartość Tagu <head>"
 
@@ -38,6 +39,7 @@ pl:
   text_padding_example: "np.: 8px, 10px, 5px 15px"
   text_upload_info: "Obsługiwane formaty: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Lub wprowadź URL obrazu"
+  text_custom_system_url_info: "Niestandardowy URL dostępu do systemu, który zastępuje adres domyślny (np. http://localhost:3000). Przykład: https://redmine.example.com"
   text_custom_head_content_info: "Wprowadź niestandardową zawartość HTML (taką jak <style>, <script> itp.), która zostanie wstawiona do tagu <head> strony. Obsługuje kod CSS i JavaScript."
 
   notice_successful_update: "Ustawienia zapisane pomyślnie."

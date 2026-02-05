@@ -29,6 +29,7 @@ vi:
   label_logo_padding: "Đệm"
   label_button_save: "Lưu"
   label_button_cancel: "Hủy"
+  label_custom_system_url: "URL Truy Cập Hệ Thống"
   label_custom_head_content: "Nội Dung Head Tùy Chỉnh"
   label_custom_head_content_description: "Nội Dung Thẻ <head> Tùy Chỉnh"
 
@@ -38,6 +39,7 @@ vi:
   text_padding_example: "ví dụ: 8px, 10px, 5px 15px"
   text_upload_info: "Định Dạng Hỗ Trợ: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Hoặc nhập URL hình ảnh"
+  text_custom_system_url_info: "URL truy cập hệ thống tùy chỉnh thay thế địa chỉ mặc định (ví dụ: http://localhost:3000). Ví dụ: https://redmine.example.com"
   text_custom_head_content_info: "Nhập nội dung HTML tùy chỉnh (như <style>, <script>, v.v.) sẽ được chèn vào thẻ <head> của trang. Hỗ trợ mã CSS và JavaScript."
 
   notice_successful_update: "Cài đặt đã được lưu thành công."

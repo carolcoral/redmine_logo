@@ -29,6 +29,7 @@ ro:
   label_logo_padding: "Spațiere"
   label_button_save: "Salvează"
   label_button_cancel: "Anulează"
+  label_custom_system_url: "URL de Acces la Sistem"
   label_custom_head_content: "Conținut Personalizat Head"
   label_custom_head_content_description: "Conținut Personalizat al Etichetei <head>"
 
@@ -38,6 +39,7 @@ ro:
   text_padding_example: "ex.: 8px, 10px, 5px 15px"
   text_upload_info: "Formate acceptate: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Sau introduceți URL-ul imaginii"
+  text_custom_system_url_info: "URL de acces la sistem personalizat care înlocuiește adresa implicită (de exemplu, http://localhost:3000). Exemplu: https://redmine.example.com"
   text_custom_head_content_info: "Introduceți conținut HTML personalizat (cum ar fi <style>, <script>, etc.) care va fi inserat în eticheta <head> a paginii. Acceptă cod CSS și JavaScript."
 
   notice_successful_update: "Setările au fost salvate cu succes."

@@ -32,6 +32,11 @@
     <%= check_box_tag 'settings[plugin_enabled]', '1', settings['plugin_enabled'] == '1' %>
     <em class="info"><%= l(:text_plugin_enabled_info) %></em>
   </p>
+  <p>
+    <label for="custom_system_url"><%= l(:label_custom_system_url) %>:</label>
+    <%= text_field_tag 'settings[custom_system_url]', settings['custom_system_url'], size: 50, placeholder: 'https://redmine.example.com' %>
+    <em class="info"><%= l(:text_custom_system_url_info) %></em>
+  </p>
 </fieldset>
 
 <%# 当checkbox未勾选时，添加一个隐藏的input来确保settings[plugin_enabled]被提交 %>
@@ -191,14 +196,66 @@
       if (textRadio.checked) {
         textSettings.style.display = 'block';
         imageSettings.style.display = 'none';
+        // 切换到文字Logo时，清除图片预览
+        previewContainer.innerHTML = '<p id="no_logo_text" style="color: #666; font-style: italic;">暂无上传的Logo图片</p>';
+        urlField.value = '';
       } else {
         textSettings.style.display = 'none';
         imageSettings.style.display = 'block';
       }
     }
 
-    textRadio.addEventListener('change', toggleSettings);
-    imageRadio.addEventListener('change', toggleSettings);
+    // 更新页面上显示的Logo
+    function updatePageLogo() {
+      const textWrapper = document.getElementById('redmine_logo-text-logo-wrapper');
+      const imageWrapper = document.getElementById('redmine_logo-image-logo-wrapper');
+      const logoText = document.getElementById('redmine_logo-custom-logo-text');
+      const logoImage = document.getElementById('redmine_logo-custom-logo-image');
+      
+      if (textRadio.checked) {
+        // 切换到文字Logo
+        if (textWrapper) {
+          textWrapper.style.display = 'block';
+          // 触发动画
+          if (logoText) {
+            logoText.style.opacity = '0';
+            logoText.style.transform = 'translateY(10px)';
+            setTimeout(function() {
+              logoText.style.opacity = '1';
+              logoText.style.transform = 'translateY(0)';
+            }, 100);
+          }
+        }
+        if (imageWrapper) {
+          imageWrapper.style.display = 'none';
+        }
+      } else {
+        // 切换到图片Logo
+        if (textWrapper) {
+          textWrapper.style.display = 'none';
+        }
+        if (imageWrapper) {
+          imageWrapper.style.display = 'block';
+          // 触发动画
+          if (logoImage) {
+            logoImage.style.opacity = '0';
+            setTimeout(function() {
+              logoImage.style.opacity = '1';
+            }, 100);
+          }
+        }
+      }
+    }
+
+    textRadio.addEventListener('change', function() {
+      toggleSettings();
+      updatePageLogo();
+    });
+    
+    imageRadio.addEventListener('change', function() {
+      toggleSettings();
+      updatePageLogo();
+    });
 
     // 上传图片功能
     if (uploadBtn && fileInput) {
@@ -221,6 +278,12 @@
         formData.append('settings[logo_type]', 'image');
         formData.append('settings[logo_image_url]', '');
         formData.append('settings[plugin_enabled]', '1');
+        
+        // 保留其他设置，包括自定义系统访问地址
+        const customSystemUrl = document.querySelector('input[name="settings[custom_system_url]"]')?.value || '';
+        if (customSystemUrl) {
+          formData.append('settings[custom_system_url]', customSystemUrl);
+        }
 
         // 发送AJAX请求
         fetch('<%= update_logo_settings_path %>', {

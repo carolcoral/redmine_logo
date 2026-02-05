@@ -29,6 +29,7 @@ sv:
   label_logo_padding: "Utfyllnad"
   label_button_save: "Spara"
   label_button_cancel: "Avbryt"
+  label_custom_system_url: "Systemåtkomst-URL"
   label_custom_head_content: "Anpassat Head-innehåll"
   label_custom_head_content_description: "Anpassat <head>-tagginnehåll"
 
@@ -38,6 +39,7 @@ sv:
   text_padding_example: "ex.: 8px, 10px, 5px 15px"
   text_upload_info: "Format som stöds: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Eller ange bild-URL"
+  text_custom_system_url_info: "Anpassad systemåtkomst-URL som ersätter standardadressen (t.ex. http://localhost:3000). Exempel: https://redmine.example.com"
   text_custom_head_content_info: "Ange anpassat HTML-innehåll (som <style>, <script> etc.) som kommer att infogas i sidans <head>-tagg. Stöder CSS- och JavaScript-kod."
 
   notice_successful_update: "Inställningar sparade framgångsrikt."

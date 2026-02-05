@@ -29,6 +29,7 @@ en:
   label_logo_padding: "Padding"
   label_button_save: "Save"
   label_button_cancel: "Cancel"
+  label_custom_system_url: "System Access URL"
   label_custom_head_content: "Custom Head Content"
   label_custom_head_content_description: "Custom <head> Tag Content"
 
@@ -38,6 +39,7 @@ en:
   text_padding_example: "e.g., 8px, 10px, 5px 15px"
   text_upload_info: "Supported formats: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Or enter image URL"
+  text_custom_system_url_info: "Custom system access URL that replaces the default address (e.g., http://localhost:3000). Example: https://redmine.example.com"
   text_custom_head_content_info: "Enter custom HTML content (such as <style>, <script>, etc.) that will be inserted into the page's <head> tag. Supports CSS and JavaScript code."
 
   notice_successful_update: "Settings saved successfully."

@@ -29,6 +29,7 @@ hr:
   label_logo_padding: "Razmak"
   label_button_save: "Spremi"
   label_button_cancel: "Odustani"
+  label_custom_system_url: "URL za Pristup Sustavu"
   label_custom_head_content: "Prilagođeni Sadržaj Head"
   label_custom_head_content_description: "Prilagođeni Sadržaj <head> Oznake"
 
@@ -38,6 +39,7 @@ hr:
   text_padding_example: "npr.: 8px, 10px, 5px 15px"
   text_upload_info: "Podržani formati: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Ili unesite URL slike"
+  text_custom_system_url_info: "Prilagođeni URL za pristup sustavu koji zamjenjuje zadanu adresu (npr. http://localhost:3000). Primjer: https://redmine.example.com"
   text_custom_head_content_info: "Unesite prilagođeni HTML sadržaj (kao <style>, <script> itd.) koji će se umetnuti u <head> oznaku stranice. Podržava CSS i JavaScript kod."
 
   notice_successful_update: "Postavke uspješno spremljene."

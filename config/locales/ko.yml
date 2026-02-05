@@ -29,6 +29,7 @@ ko:
   label_logo_padding: "패딩"
   label_button_save: "저장"
   label_button_cancel: "취소"
+  label_custom_system_url: "시스템 액세스 URL"
   label_custom_head_content: "사용자 지정 Head 콘텐츠"
   label_custom_head_content_description: "사용자 지정 <head> 태그 콘텐츠"
 
@@ -38,6 +39,7 @@ ko:
   text_padding_example: "예: 8px, 10px, 5px 15px"
   text_upload_info: "지원 형식: JPG, PNG, GIF, SVG"
   text_or_enter_url: "또는 이미지 URL 입력"
+  text_custom_system_url_info: "기본 주소(예: http://localhost:3000)를 대체하는 사용자 지정 시스템 액세스 URL. 예: https://redmine.example.com"
   text_custom_head_content_info: "페이지의 <head> 태그에 삽입될 사용자 지정 HTML 콘텐츠(예: <style>, <script> 등)를 입력하세요. CSS 및 JavaScript 코드를 지원합니다."
 
   notice_successful_update: "설정이 성공적으로 저장되었습니다."

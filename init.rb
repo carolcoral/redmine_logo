@@ -23,6 +23,7 @@ Redmine::Plugin.register :redmine_logo do
     'logo_margin' => '0',
     'logo_padding' => '8px',
     'logo_height' => '25px',  # Logo高度
+    'custom_system_url' => '',  # 自定义系统访问地址
     'custom_head_content' => ''  # 自定义<head>内容
   }, partial: 'logo_settings/form'
 
@@ -30,4 +31,8 @@ Redmine::Plugin.register :redmine_logo do
 end
 
 require_relative 'lib/redmine_logo/view_listener'
+require_relative 'lib/redmine_logo/system_url_override'
 require_relative 'app/helpers/logo_helper'
+
+# 应用系统URL覆盖（如果已配置）
+RedmineLogo::SystemUrlOverride.apply!

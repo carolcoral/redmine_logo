@@ -29,6 +29,7 @@ ru:
   label_logo_padding: "Внутренний Отступ"
   label_button_save: "Сохранить"
   label_button_cancel: "Отмена"
+  label_custom_system_url: "URL Доступа к Системе"
   label_custom_head_content: "Пользовательское Содержимое Head"
   label_custom_head_content_description: "Пользовательское Содержимое Тега <head>"
 
@@ -38,6 +39,7 @@ ru:
   text_padding_example: "напр.: 8px, 10px, 5px 15px"
   text_upload_info: "Поддерживаемые форматы: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Или введите URL изображения"
+  text_custom_system_url_info: "Пользовательский URL доступа к системе, который заменяет адрес по умолчанию (например, http://localhost:3000). Пример: https://redmine.example.com"
   text_custom_head_content_info: "Введите пользовательское HTML-содержимое (например, <style>, <script> и т.д.), которое будет вставлено в тег <head> страницы. Поддерживает CSS и JavaScript код."
 
   notice_successful_update: "Настройки успешно сохранены."

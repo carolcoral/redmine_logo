@@ -29,6 +29,7 @@ tr:
   label_logo_padding: "İç Boşluk"
   label_button_save: "Kaydet"
   label_button_cancel: "İptal"
+  label_custom_system_url: "Sistem Erişim URL'ı"
   label_custom_head_content: "Özel Head İçeriği"
   label_custom_head_content_description: "Özel <head> Etiketi İçeriği"
 
@@ -38,6 +39,7 @@ tr:
   text_padding_example: "örn.: 8px, 10px, 5px 15px"
   text_upload_info: "Desteklenen Formatlar: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Veya görsel URL'si girin"
+  text_custom_system_url_info: "Varsayılan adresin yerine geçen özel sistem erişim URL'ı (örneğin, http://localhost:3000). Örnek: https://redmine.example.com"
   text_custom_head_content_info: "Sayfanın <head> etiketine eklenecek özel HTML içeriğini (<style>, <script> vb.) girin. CSS ve JavaScript kodunu destekler."
 
   notice_successful_update: "Ayarlar başarıyla kaydedildi."

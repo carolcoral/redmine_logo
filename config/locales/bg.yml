@@ -29,6 +29,7 @@ bg:
   label_logo_padding: "Пълнеж"
   label_button_save: "Запазване"
   label_button_cancel: "Отказ"
+  label_custom_system_url: "URL за Достъп до Системата"
   label_custom_head_content: "Персонализирано съдържание на head"
   label_custom_head_content_description: "Персонализирано съдържание на <head> таг"
 
@@ -38,6 +39,7 @@ bg:
   text_padding_example: "напр.: 8px, 10px, 5px 15px"
   text_upload_info: "Поддържани формати: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Или въведете URL на изображение"
+  text_custom_system_url_info: "Потребителски URL за достъп до системата, който замества адреса по подразбиране (например http://localhost:3000). Пример: https://redmine.example.com"
   text_custom_head_content_info: "Въведете персонализирано HTML съдържание (като <style>, <script> и т.н.), което ще бъде вмъкнато в <head> тага на страницата. Поддържа CSS и JavaScript код."
 
   notice_successful_update: "Настройките са запазени успешно."

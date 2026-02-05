@@ -29,10 +29,12 @@ fa:
   label_logo_padding: "فاصله داخلی"
   label_button_save: "ذخیره"
   label_button_cancel: "لغو"
+  label_custom_system_url: "URL دسترسی به سیستم"
   label_custom_head_content: "محتوای سفارشی head"
   label_custom_head_content_description: "محتوای سفارشی تگ <head>"
 
   text_plugin_enabled_info: "برای فعال کردن نمایش لوگو علامت بزنید"
+  text_custom_system_url_info: "URL دسترسی به سیستم سفارشی که جایگزین آدرس پیش‌فرض (مانند http://localhost:3000) می‌شود. مثال: https://redmine.example.com"
   text_size_example: "مثال: 20px, 1.5em, 2rem"
   text_margin_example: "مثال: 0, 5px, 10px 15px"
   text_padding_example: "مثال: 8px, 10px, 5px 15px"

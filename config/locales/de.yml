@@ -29,6 +29,7 @@ de:
   label_logo_padding: "Innenabstand"
   label_button_save: "Speichern"
   label_button_cancel: "Abbrechen"
+  label_custom_system_url: "System-Zugriffs-URL"
   label_custom_head_content: "Benutzerdefinierter Head-Inhalt"
   label_custom_head_content_description: "Benutzerdefinierter <head>-Tag-Inhalt"
 
@@ -38,6 +39,7 @@ de:
   text_padding_example: "z.B.: 8px, 10px, 5px 15px"
   text_upload_info: "Unterstützte Formate: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Oder Bild-URL eingeben"
+  text_custom_system_url_info: "Benutzerdefinierte System-Zugriffs-URL, die die Standardadresse (z. B. http://localhost:3000) ersetzt. Beispiel: https://redmine.example.com"
   text_custom_head_content_info: "Geben Sie benutzerdefinierten HTML-Inhalt (wie <style>, <script> usw.) ein, der in das <head>-Tag der Seite eingefügt wird. Unterstützt CSS- und JavaScript-Code."
 
   notice_successful_update: "Einstellungen erfolgreich gespeichert."

@@ -29,6 +29,7 @@ da:
   label_logo_padding: "Polstring"
   label_button_save: "Gem"
   label_button_cancel: "Annuller"
+  label_custom_system_url: "System Adgangs-URL"
   label_custom_head_content: "Brugerdefineret Head Indhold"
   label_custom_head_content_description: "Brugerdefineret <head> Tag Indhold"
 
@@ -38,6 +39,7 @@ da:
   text_padding_example: "f.eks.: 8px, 10px, 5px 15px"
   text_upload_info: "Understøttede formater: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Eller indtast billede URL"
+  text_custom_system_url_info: "Brugerdefineret system adgangs-URL, der erstatter standardadressen (f.eks. http://localhost:3000). Eksempel: https://redmine.example.com"
   text_custom_head_content_info: "Indtast brugerdefineret HTML-indhold (såsom <style>, <script> osv.), som vil blive indsat i sidens <head> tag. Understøtter CSS- og JavaScript-kode."
 
   notice_successful_update: "Indstillinger gemt med succes."

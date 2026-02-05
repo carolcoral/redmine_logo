@@ -29,6 +29,7 @@ ar:
   label_logo_padding: "حشوة"
   label_button_save: "حفظ"
   label_button_cancel: "إلغاء"
+  label_custom_system_url: "عنوان URL لوصول النظام"
   label_custom_head_content: "محتوى مخصص للرأس"
   label_custom_head_content_description: "محتوى مخصص لعلامة <head>"
 
@@ -38,6 +39,7 @@ ar:
   text_padding_example: "مثال: 8px, 10px, 5px 15px"
   text_upload_info: "الصيغ المدعومة: JPG, PNG, GIF, SVG"
   text_or_enter_url: "أو أدخل رابط الصورة"
+  text_custom_system_url_info: "عنوان URL مخصص للوصول إلى النظام يحل محل العنوان الافتراضي (مثلا http://localhost:3000). مثال: https://redmine.example.com"
   text_custom_head_content_info: "أدخل محتوى HTML مخصص (مثل <style>، <script>، إلخ) الذي سيتم إدراجه في علامة <head> للصفحة. يدعم كود CSS وJavaScript."
 
   notice_successful_update: "تم حفظ الإعدادات بنجاح."

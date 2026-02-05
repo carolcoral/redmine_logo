@@ -29,6 +29,7 @@ uk:
   label_logo_padding: "Внутрішній Відступ"
   label_button_save: "Зберегти"
   label_button_cancel: "Скасувати"
+  label_custom_system_url: "URL Доступу до Системи"
   label_custom_head_content: "Власний Вміст Head"
   label_custom_head_content_description: "Власний Вміст Тегу <head>"
 
@@ -38,6 +39,7 @@ uk:
   text_padding_example: "напр.: 8px, 10px, 5px 15px"
   text_upload_info: "Підтримувані формати: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Або введіть URL зображення"
+  text_custom_system_url_info: "Користувацький URL доступу до системи, який замінює адресу за замовчуванням (наприклад, http://localhost:3000). Приклад: https://redmine.example.com"
   text_custom_head_content_info: "Введіть власний HTML-вміст (наприклад, <style>, <script> тощо), який буде вставлено в тег <head> сторінки. Підтримує CSS та JavaScript код."
 
   notice_successful_update: "Налаштування успішно збережено."

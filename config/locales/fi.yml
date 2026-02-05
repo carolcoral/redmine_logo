@@ -29,6 +29,7 @@ fi:
   label_logo_padding: "Täyte"
   label_button_save: "Tallenna"
   label_button_cancel: "Peruuta"
+  label_custom_system_url: "Järjestelmän Käyttöosoite"
   label_custom_head_content: "Mukautettu Head-sisältö"
   label_custom_head_content_description: "Mukautettu <head>-tagin sisältö"
 
@@ -38,6 +39,7 @@ fi:
   text_padding_example: "esim.: 8px, 10px, 5px 15px"
   text_upload_info: "Tuetut formaatit: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Tai syötä kuvan URL"
+  text_custom_system_url_info: "Mukautettu järjestelmän käyttöosoite, joka korvaa oletusosoitteen (esim. http://localhost:3000). Esimerkki: https://redmine.example.com"
   text_custom_head_content_info: "Syötä mukautettua HTML-sisältöä (kuten <style>, <script> jne.), joka lisätään sivun <head>-tagiin. Tukee CSS- ja JavaScript-koodia."
 
   notice_successful_update: "Asetukset tallennettu onnistuneesti."

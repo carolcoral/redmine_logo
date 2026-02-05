@@ -29,6 +29,7 @@ hu:
   label_logo_padding: "Kitöltés"
   label_button_save: "Mentés"
   label_button_cancel: "Mégsem"
+  label_custom_system_url: "Rendszer Hozzáférési URL"
   label_custom_head_content: "Egyedi Head Tartalom"
   label_custom_head_content_description: "Egyedi <head> Tag Tartalom"
 
@@ -38,6 +39,7 @@ hu:
   text_padding_example: "pl.: 8px, 10px, 5px 15px"
   text_upload_info: "Támogatott formátumok: JPG, PNG, GIF, SVG"
   text_or_enter_url: "Vagy adja meg a kép URL-jét"
+  text_custom_system_url_info: "Egyéni rendszer hozzáférési URL, amely lecseréli az alapértelmezett címet (pl. http://localhost:3000). Példa: https://redmine.example.com"
   text_custom_head_content_info: "Adjon meg egyéni HTML-tartalmat (mint <style>, <script> stb.), amely bekerül az oldal <head> tag-jébe. Támogatja a CSS és JavaScript kódot."
 
   notice_successful_update: "Beállítások sikeresen mentve."

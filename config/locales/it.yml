@@ -29,6 +29,7 @@ it:
   label_logo_padding: "Padding"
   label_button_save: "Salva"
   label_button_cancel: "Annulla"
+  label_custom_system_url: "URL di Accesso al Sistema"
   label_custom_head_content: "Contenuto Head Personalizzato"
   label_custom_head_content_description: "Contenuto Personalizzato del Tag <head>"
 
@@ -38,6 +39,7 @@ it:
   text_padding_example: "es.: 8px, 10px, 5px 15px"
   text_upload_info: "Formati supportati: JPG, PNG, GIF, SVG"
   text_or_enter_url: "O inserisci l'URL dell'immagine"
+  text_custom_system_url_info: "URL di accesso al sistema personalizzato che sostituisce l'indirizzo predefinito (ad esempio http://localhost:3000). Esempio: https://redmine.example.com"
   text_custom_head_content_info: "Inserisci contenuto HTML personalizzato (come <style>, <script>, ecc.) che verrà inserito nel tag <head> della pagina. Supporta codice CSS e JavaScript."
 
   notice_successful_update: "Impostazioni salvate correttamente."
