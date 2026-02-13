@@ -235,53 +235,56 @@ module RedmineLogo
     def generate_logo_html(settings)
       link_path = home_url
       
-      # 生成文字Logo
-      text = settings['logo_text'] || 'Redmine'
-      first_letter = text[0]
-      rest_of_text = text[1..-1]
-      first_letter_color = settings['logo_first_letter_color'] || settings['logo_text_color'] || '#ffffff'
-      font_size = settings['logo_text_font_size'] || '20px'
-      
-      # 计算其他字母的字体大小（小8%）
-      if font_size.to_s.include?('px')
-        base_size = font_size.to_f
-        other_size = "#{(base_size * 0.92).round(1)}px"
-      else
-        other_size = font_size
+      # 生成文字Logo（如果有base64图片数据且logo_type为text）
+      text_content = ""
+      if settings['logo_type'] == 'text'
+        text = settings['logo_text'] || 'Redmine'
+        first_letter = text[0]
+        rest_of_text = text[1..-1]
+        first_letter_color = settings['logo_first_letter_color'] || settings['logo_text_color'] || '#ffffff'
+        font_size = settings['logo_text_font_size'] || '20px'
+        
+        # 计算其他字母的字体大小（小8%）
+        if font_size.to_s.include?('px')
+          base_size = font_size.to_f
+          other_size = "#{(base_size * 0.92).round(1)}px"
+        else
+          other_size = font_size
+        end
+        
+        # 创建带首字母颜色的文字
+        content_tag = if rest_of_text.present?
+          ActionController::Base.helpers.content_tag(:span, first_letter, 
+            style: "color: #{first_letter_color}", 
+            class: 'redmine_logo-logo-first-letter') +
+          ActionController::Base.helpers.content_tag(:span, rest_of_text,
+            style: "font-size: #{other_size}")
+        else
+          ActionController::Base.helpers.content_tag(:span, first_letter, 
+            style: "color: #{first_letter_color}", 
+            class: 'redmine_logo-logo-first-letter')
+        end
+        
+        # 包装在logo-text-modern中
+        text_content = ActionController::Base.helpers.content_tag(:span, 
+          content_tag, 
+          style: logo_text_styles(settings),
+          id: 'redmine_logo-custom-logo-text',
+          class: 'redmine_logo-logo-text-modern'
+        )
       end
       
-      # 创建带首字母颜色的文字
-      content_tag = if rest_of_text.present?
-        ActionController::Base.helpers.content_tag(:span, first_letter, 
-          style: "color: #{first_letter_color}", 
-          class: 'redmine_logo-logo-first-letter') +
-        ActionController::Base.helpers.content_tag(:span, rest_of_text,
-          style: "font-size: #{other_size}")
-      else
-        ActionController::Base.helpers.content_tag(:span, first_letter, 
-          style: "color: #{first_letter_color}", 
-          class: 'redmine_logo-logo-first-letter')
-      end
-      
-      # 包装在logo-text-modern中
-      text_content = ActionController::Base.helpers.content_tag(:span, 
-        content_tag, 
-        style: logo_text_styles(settings),
-        id: 'redmine_logo-custom-logo-text',
-        class: 'redmine_logo-logo-text-modern'
-      )
-      
-      # 生成图片Logo（如果有图片URL）
+      # 生成图片Logo（如果有base64图片数据且logo_type为image）
       image_content = ""
-      if settings['logo_image_url'].present?
+      if settings['logo_image_base64'].present? && settings['logo_type'] == 'image'
         image_tag = ActionController::Base.helpers.image_tag(
-          settings['logo_image_url'],
+          settings['logo_image_base64'],
           alt: settings['logo_text'] || 'Redmine',
           style: logo_image_styles(settings),
           id: 'redmine_logo-custom-logo-image'
         )
         image_content = <<~HTML
-          <span id="redmine_logo-image-logo-wrapper" style="display: #{settings['logo_type'] == 'image' ? 'block' : 'none'};">
+          <span id="redmine_logo-image-logo-wrapper" class="redmine_logo-logo-wrapper">
             #{image_tag}
           </span>
         HTML

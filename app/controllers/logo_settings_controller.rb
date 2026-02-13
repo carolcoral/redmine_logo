@@ -7,56 +7,62 @@ class LogoSettingsController < ApplicationController
     
     # 验证文字logo长度
     if settings['logo_type'] == 'text' && settings['logo_text'].present?
-      if settings['logo_text'].length > 10
+      if settings['logo_text'].length > 30
         respond_to do |format|
           format.html {
-            flash[:error] = l(:notice_error_update, message: '文字logo不能超过10个字符')
+            flash[:error] = l(:notice_error_update, message: '文字logo不能超过30个字符')
             redirect_to plugin_settings_path('redmine_logo')
           }
-          format.json { render json: {error: '文字logo不能超过10个字符'}, status: :unprocessable_entity }
+          format.json { render json: {error: '文字logo不能超过30个字符'}, status: :unprocessable_entity }
         end
         return
       end
     end
     
-    image_url = nil
+    image_base64 = nil
     
-    # 处理图片上传
+    # 处理图片上传 - 转换为base64存储
     if params[:logo_image_file].present? && params[:logo_image_file].respond_to?(:read)
       uploaded_file = params[:logo_image_file]
-      Rails.logger.info "[LogoPlugin] Uploading file: #{uploaded_file.original_filename}, size: #{uploaded_file.size}"
+      Rails.logger.info "[LogoPlugin] Converting file to base64: #{uploaded_file.original_filename}, size: #{uploaded_file.size}"
       
       if uploaded_file.respond_to?(:original_filename) && uploaded_file.size > 0
-        # 创建上传目录
-        logo_dir = Rails.root.join('public', 'plugin_assets', 'redmine_logo', 'logos')
-        FileUtils.mkdir_p(logo_dir) unless File.exist?(logo_dir)
-        
-        # 生成文件名
-        filename = "logo_#{Time.current.to_i}_#{uploaded_file.original_filename}"
-        file_path = logo_dir.join(filename)
-        
-        # 保存文件
-        File.open(file_path, 'wb') do |file|
-          file.write(uploaded_file.read)
+        begin
+          # 读取文件内容并转换为base64
+          file_content = uploaded_file.read
+          base64_data = Base64.strict_encode64(file_content)
+          content_type = uploaded_file.content_type || 'image/png'
+          
+          # 构建data URI
+          image_base64 = "data:#{content_type};base64,#{base64_data}"
+          
+          # 保存base64到settings
+          settings['logo_image_base64'] = image_base64
+          settings['logo_image_content_type'] = content_type
+          
+          Rails.logger.info "[LogoPlugin] File converted to base64, size: #{image_base64.length} characters"
+        rescue => e
+          Rails.logger.error "[LogoPlugin] Error converting file to base64: #{e.message}\n#{e.backtrace.join("\n")}"
+          settings['logo_image_base64'] = ''
+          settings['logo_image_content_type'] = ''
         end
-        
-        # 设置图片URL - 使用完整的URL路径
-        image_url = "/plugin_assets/redmine_logo/logos/#{filename}"
-        settings['logo_image_url'] = image_url
-        Rails.logger.info "[LogoPlugin] File saved to: #{file_path}, URL: #{image_url}"
       else
         Rails.logger.warn "[LogoPlugin] Invalid file upload"
+        settings['logo_image_base64'] = ''
+        settings['logo_image_content_type'] = ''
       end
-    elsif settings['logo_type'] == 'image'
-      # 如果logo_type是image但没有上传新文件，保留之前的URL
-      current_settings = Setting.plugin_redmine_logo || {}
-      settings['logo_image_url'] = current_settings['logo_image_url'] if current_settings['logo_image_url'].present?
     else
-      settings['logo_image_url'] = ''
+      # 对于所有情况（包括image类型但没有上传新文件，或切换到text），都保留之前的base64数据
+      # 这样切换回图片时还能恢复显示
+      current_settings = Setting.plugin_redmine_logo || {}
+      settings['logo_image_base64'] = current_settings['logo_image_base64'] if current_settings['logo_image_base64'].present?
+      settings['logo_image_content_type'] = current_settings['logo_image_content_type'] if current_settings['logo_image_content_type'].present?
     end
     
     # 保存设置
+    Rails.logger.info "[LogoPlugin] Saving plugin settings with base64 image"
     Setting.plugin_redmine_logo = settings
+    Rails.logger.info "[LogoPlugin] Settings saved successfully"
     
     respond_to do |format|
       format.html {
@@ -66,7 +72,7 @@ class LogoSettingsController < ApplicationController
       format.json { 
         render json: {
           success: true, 
-          image_url: image_url,
+          image_url: image_base64,
           message: l(:notice_successful_update)
         } 
       }

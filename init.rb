@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_logo do
   name 'Redmine Logo Plugin'
   author 'carolcoral'
   description 'Customizable logo plugin for Redmine 6.1.x with support for text or image logo in top menu area, custom head content insertion, and more'
-  version '1.0.2'
+  version '1.0.3'
   url 'https://github.com/carolcoral/redmine_logo'
   author_url 'https://github.com/carolcoral'
 
@@ -19,7 +19,8 @@ Redmine::Plugin.register :redmine_logo do
     'logo_text_font_size' => '26px',  # 固定字体大小为26px
     'logo_text_font_weight' => '600',
     'logo_position' => 'left',
-    'logo_image_url' => '',
+    'logo_image_base64' => '',  # base64编码的图片数据
+    'logo_image_content_type' => '',  # 图片content type
     'logo_margin' => '0',
     'logo_padding' => '8px',
     'logo_height' => '25px',  # Logo高度

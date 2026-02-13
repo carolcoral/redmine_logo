@@ -7,7 +7,8 @@
    settings['logo_text_font_size'] ||= '26px'  # 固定字体大小26px
    settings['logo_text_font_weight'] ||= '600'
    settings['logo_position'] ||= 'left'
-   settings['logo_image_url'] ||= ''
+   settings['logo_image_base64'] ||= ''
+   settings['logo_image_content_type'] ||= ''
    settings['logo_margin'] ||= '0'
    settings['logo_padding'] ||= '8px'
    settings['custom_head_content'] ||= ''
@@ -118,19 +119,20 @@
     </p>
     <div id="upload_status" style="display: none; margin: 10px 0; padding: 10px; border-radius: 3px;"></div>
     <div id="image_preview_container" style="margin-top: 15px;">
-      <% if settings['logo_image_url'].present? %>
+      <% if settings['logo_image_base64'].present? %>
         <p>
           <label><%= l(:label_current_logo) %>:</label>
           <span class="current-logo-preview">
-            <%= image_tag settings['logo_image_url'], style: "max-width: 200px; max-height: 60px; border: 1px solid #ccc;" %>
+            <%= image_tag settings['logo_image_base64'], style: "max-width: 200px; max-height: 60px; border: 1px solid #ccc;" %>
           </span>
         </p>
       <% else %>
         <p id="no_logo_text" style="color: #666; font-style: italic;">暂无上传的Logo图片</p>
       <% end %>
     </div>
-    <!-- 移除URL输入方式，只允许文件上传 -->
-    <%= hidden_field_tag 'settings[logo_image_url]', settings['logo_image_url'], id: 'logo_image_url_field' %>
+    <!-- 保存base64图片数据，确保切换类型时不丢失 -->
+    <%= hidden_field_tag 'settings[logo_image_base64]', settings['logo_image_base64'] %>
+    <%= hidden_field_tag 'settings[logo_image_content_type]', settings['logo_image_content_type'] %>
   </fieldset>
 </div>
 
@@ -196,12 +198,23 @@
       if (textRadio.checked) {
         textSettings.style.display = 'block';
         imageSettings.style.display = 'none';
-        // 切换到文字Logo时，清除图片预览
-        previewContainer.innerHTML = '<p id="no_logo_text" style="color: #666; font-style: italic;">暂无上传的Logo图片</p>';
-        urlField.value = '';
+        // 切换到文字Logo时，只隐藏预览，不清除数据（数据会随表单提交）
+        // 注意：不要清除previewContainer，否则切换回图片时会丢失预览
       } else {
         textSettings.style.display = 'none';
         imageSettings.style.display = 'block';
+        // 切换到图片Logo时，如果有base64数据，显示预览
+        const base64Field = document.querySelector('input[name="settings[logo_image_base64]"]');
+        if (base64Field && base64Field.value) {
+          previewContainer.innerHTML = `
+            <p>
+              <label>当前Logo:</label>
+              <span class="current-logo-preview">
+                <img src="${base64Field.value}" style="max-width: 200px; max-height: 60px; border: 1px solid #ccc;">
+              </span>
+            </p>
+          `;
+        }
       }
     }
 
@@ -276,14 +289,28 @@
         const formData = new FormData();
         formData.append('logo_image_file', file);
         formData.append('settings[logo_type]', 'image');
-        formData.append('settings[logo_image_url]', '');
         formData.append('settings[plugin_enabled]', '1');
         
-        // 保留其他设置，包括自定义系统访问地址
-        const customSystemUrl = document.querySelector('input[name="settings[custom_system_url]"]')?.value || '';
-        if (customSystemUrl) {
-          formData.append('settings[custom_system_url]', customSystemUrl);
-        }
+        // 获取并保留所有设置字段的值，避免切换类型时丢失数据
+        const allSettings = document.querySelectorAll('input[name^="settings["], select[name^="settings["], textarea[name^="settings["]');
+        allSettings.forEach(input => {
+          // 跳过logo_image_file和logo_type，因为已经单独处理
+          if (input.name === 'logo_image_file' || input.name === 'settings[logo_type]') {
+            return;
+          }
+          
+          // 对于图片上传，保留之前文字logo的设置（但logo_type设为image）
+          // 对于AJAX上传，保留所有设置字段
+          if (input.type === 'radio') {
+            if (input.checked) {
+              formData.append(input.name, input.value);
+            }
+          } else if (input.type === 'checkbox') {
+            formData.append(input.name, input.checked ? '1' : '0');
+          } else {
+            formData.append(input.name, input.value);
+          }
+        });
 
         // 发送AJAX请求
         fetch('<%= update_logo_settings_path %>', {
@@ -306,7 +333,7 @@
             
             // 更新预览
             if (data.image_url) {
-              urlField.value = data.image_url;
+              // 更新预览（这里data.image_url返回的是base64数据）
               previewContainer.innerHTML = `
                 <p>
                   <label>当前Logo:</label>
